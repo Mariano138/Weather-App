@@ -22,6 +22,15 @@ export default function useFetch() {
     await AsyncStorage.setItem('savedCity', city);
   };
 
+  const getDayName = (dt: number, index: number) => {
+    const date = new Date(dt * 1000);
+    if (index === 0) return 'Mañana';
+    const day = date.toLocaleDateString('es-ES', { weekday: 'long' });
+    const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
+
+    return capitalize(day);
+  };
+
   const fetchWeather = async (cityToFetch?: string) => {
     const query = cityToFetch ?? city;
     if (!query.trim()) return;
@@ -35,9 +44,11 @@ export default function useFetch() {
       );
       const data = await response.json();
 
-      if (data.cod && data.cod !== 200) {
+      if (data.cod && data.cod !== '200') {
         setError('Ciudad no encontrada');
         setWeather(null);
+        setIsLoading(false);
+        return;
       } else {
         setWeather(data);
         saveCity();
@@ -48,5 +59,5 @@ export default function useFetch() {
       setIsLoading(false);
     }
   };
-  return { fetchWeather, city, setCity, isLoading, weather, error };
+  return { fetchWeather, city, setCity, isLoading, weather, error, getDayName };
 }
