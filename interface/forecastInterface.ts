@@ -1,4 +1,4 @@
-interface ForecastItem {
+interface ForecastInterface {
   dt: number;
   dt_txt: string;
   main: {
@@ -12,4 +12,4 @@ interface ForecastItem {
   }[];
 }
 
-export default ForecastItem;
+export default ForecastInterface;

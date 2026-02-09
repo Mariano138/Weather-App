@@ -1,75 +1,79 @@
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import useFetch from 'hooks/useFetch';
-import { TextInput } from 'react-native-gesture-handler';
-import ForecastItem from 'interface/forecastItem';
+
+import MainTemp from '../components/MainTemp';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { useWeatherStore } from 'store/weatherStore';
+import SearchBar from 'components/SearchBar';
+import { LinearGradient } from 'expo-linear-gradient';
+import ForeCast from 'components/ForeCast';
 
 export default function Home() {
-  const { fetchWeather, city, setCity, isLoading, weather, error, getDayName } = useFetch();
+  const { isLoading, weather, error, getDayName } = useWeatherStore();
 
   if (!weather && !isLoading && !error) {
     return (
-      <View>
-        <TextInput placeholder="Search" value={city} onChangeText={setCity} />
-        <Button title="Search" onPress={() => fetchWeather()} />
+      <SafeAreaView>
+        <SearchBar />
         <Text>Busca una ciudad.</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 
   if (isLoading) {
-    return <Text>Cargando...</Text>;
+    return <ActivityIndicator size={40} style={{ flex: 1, alignSelf: 'center' }} />;
   }
 
   if (weather.error) {
     return (
-      <View>
-        <TextInput placeholder="Search" value={city} onChangeText={setCity} />
-        <Button title="Search" onPress={() => fetchWeather()} />
+      <SafeAreaView>
+        <SearchBar />
         <Text>Ciudad no encontrada.</Text>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View>
-      <TextInput placeholder="Search" value={city} onChangeText={setCity} />
-      <Button title="Search" onPress={() => fetchWeather()} />
+    <LinearGradient
+      colors={[
+        '#abc4ff',
+        '#d7e3fc',
+        '#abc4ff',
+        '#ccdbfd',
+        '#abc4ff',
+        '#d7e3fc',
+        '#d7e3fc',
+        '#abc4ff',
+        '#ccdbfd',
+      ]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{ flex: 1 }}>
+      <SearchBar />
 
       {isLoading && <Text>Cargando...</Text>}
 
       {weather && (
         <View>
-          <Image
-            style={styles.icon}
-            source={{
-              uri: `https://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`,
-            }}
-          />
-          <Text>{weather.current.name}</Text>
-          <Text>{weather.current.main.temp}°C</Text>
-          <Text>{weather.current.weather[0].description}</Text>
+          <MainTemp weather={weather} />
 
-          <View>
-            {/* <Text>
-              {getDayName(weather.forecast?.[0].dt)}
-              {weather.forecast?.[0]?.main?.temp}°C
-            </Text> */}
-            {weather.forecast.map((item: ForecastItem, index: number) => (
-              <Text key={index}>
-                {getDayName(item.dt, index)}: {item.main.temp}°C
-              </Text>
-            ))}
-          </View>
+          <ForeCast />
         </View>
       )}
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    width: 50,
-    height: 50,
+  container: {
+    flex: 1,
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '100%',
   },
 });

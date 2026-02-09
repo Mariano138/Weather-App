@@ -6,6 +6,9 @@ const Stack = createStackNavigator({
   screens: {
     Home: {
       screen: home,
+      options: {
+        headerShown: false,
+      },
     },
   },
 });
