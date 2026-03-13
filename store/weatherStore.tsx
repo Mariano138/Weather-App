@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import WeatherInterface from 'interface/weatherInterface';
 import { create } from 'zustand';
 
 interface WeatherStore {
-  weather: any | null;
+  weather: WeatherInterface | null;
   city: string;
   isLoading: boolean;
   error: string | null;
@@ -10,6 +11,8 @@ interface WeatherStore {
   setCity: (city: string) => void;
   fetchWeather: (cityToFetch?: string) => void;
   getDayName: (dt: number, index: number) => string;
+  getDateNumber: (dt: number) => string;
+  capitalizeFirstLetter: (text: string) => string;
   loadCity: () => Promise<void>;
 }
 
@@ -33,9 +36,23 @@ export const useWeatherStore = create<WeatherStore>((set, get) => ({
     const date = new Date(dt * 1000);
     // if (index === 0) return 'Mañana';
     const day = date.toLocaleDateString('es-ES', { weekday: 'short' });
-    const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
+    const capitalize = (str: string) => str.toUpperCase();
 
     return capitalize(day);
+  },
+
+  getDateNumber: (dt) => {
+    const date = new Date(dt * 1000);
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+    });
+  },
+
+  capitalizeFirstLetter: (text) => {
+    const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+
+    return capitalize(text);
   },
 
   fetchWeather: async (cityToFetch) => {

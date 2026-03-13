@@ -4,19 +4,31 @@ import React from 'react';
 import WeatherInterface from 'interface/weatherInterface';
 import { BlurView } from 'expo-blur';
 import formatTemp from 'helpers/formatTemp';
+import { useWeatherStore } from 'store/weatherStore';
 
-export default function MainTemp({ weather }: WeatherInterface) {
+interface Props {
+  weather: WeatherInterface;
+}
+
+export default function MainTemp({ weather }: Props) {
+  const { capitalizeFirstLetter } = useWeatherStore();
   return (
     <View style={styles.container}>
-      <BlurView intensity={80} style={styles.blurBackground}>
-        <Text style={styles.cityName}>{weather.current.name}</Text>
+      <BlurView
+        intensity={10}
+        experimentalBlurMethod="dimezisBlurView"
+        tint="dark"
+        style={styles.blurBackground}>
+        <Text style={[styles.cityName, styles.textShadow]}>{weather.current.name}</Text>
 
         <View style={styles.line}></View>
 
         <View style={styles.mainView}>
           <View style={styles.mainTempContainer}>
-            <Text style={styles.mainTempText}>{formatTemp(weather.current.main.temp)}°</Text>
-            <Text style={styles.feelLikeText}>
+            <Text style={[styles.mainTempText, styles.textShadow]}>
+              {formatTemp(weather.current.main.temp)}°
+            </Text>
+            <Text style={[styles.feelLikeText, styles.textShadow]}>
               Sensación {formatTemp(weather.current.main.feels_like)}°C
             </Text>
           </View>
@@ -34,20 +46,24 @@ export default function MainTemp({ weather }: WeatherInterface) {
         <View style={styles.line}></View>
 
         <View style={styles.humidityContainer}>
-          <Text style={styles.secondaryText}>{weather.current.weather[0].description}</Text>
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            {capitalizeFirstLetter(weather.current.weather[0].description)}
+          </Text>
           <View style={styles.verticalLine} />
-          <Text style={styles.secondaryText}>Humedad: {weather.current.main.humidity}%</Text>
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            Humedad: {weather.current.main.humidity}%
+          </Text>
         </View>
 
         <View style={styles.line} />
 
         <View style={styles.humidityContainer}>
-          <Text style={styles.secondaryText}>
-            Min: {formatTemp(weather.current.main.temp_min)}°C
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            Max: {formatTemp(weather.current.main.temp_max)}°C
           </Text>
           <View style={styles.verticalLine} />
-          <Text style={styles.secondaryText}>
-            Max: {formatTemp(weather.current.main.temp_max)}°C
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            Min: {formatTemp(weather.current.main.temp_min)}°C
           </Text>
         </View>
       </BlurView>
@@ -56,7 +72,7 @@ export default function MainTemp({ weather }: WeatherInterface) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: { marginTop: 10 },
   cityName: {
     textAlign: 'center',
     fontSize: 30,
@@ -103,7 +119,8 @@ const styles = StyleSheet.create({
   },
   blurBackground: {
     padding: 20,
-    margin: 16,
+    marginHorizontal: 16,
+    marginBottom: 10,
     overflow: 'hidden',
     borderRadius: 20,
   },
@@ -122,5 +139,10 @@ const styles = StyleSheet.create({
     height: '80%',
     backgroundColor: '#fff',
     marginVertical: 10,
+  },
+  textShadow: {
+    textShadowColor: 'rgba(0,0,0,0.6)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
 });

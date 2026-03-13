@@ -1,4 +1,11 @@
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 
 import MainTemp from '../components/MainTemp';
@@ -6,74 +13,86 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useWeatherStore } from 'store/weatherStore';
 import SearchBar from 'components/SearchBar';
-import { LinearGradient } from 'expo-linear-gradient';
 import ForeCast from 'components/ForeCast';
+import getBackground from 'helpers/getBackground';
+import { BlurView } from 'expo-blur';
+import WelcomeView from 'components/WelcomeView';
+import DescriptionView from 'components/DescriptionView';
+import useRandomBackground from 'hooks/useRandomBackground';
+import BackgroundAnimation from 'animations/BackgroundAnimation';
+import SkeletonLoader from 'components/SkeletonLoader';
 
 export default function Home() {
-  const { isLoading, weather, error, getDayName } = useWeatherStore();
+  const { isLoading, weather, error } = useWeatherStore();
+  const background = useRandomBackground();
 
   if (!weather && !isLoading && !error) {
     return (
-      <SafeAreaView>
-        <SearchBar />
-        <Text>Busca una ciudad.</Text>
-      </SafeAreaView>
+      <View style={styles.background}>
+        <BackgroundAnimation source={background} />
+        <SafeAreaView style={styles.container}>
+          <WelcomeView />
+          <SearchBar />
+          <DescriptionView />
+        </SafeAreaView>
+      </View>
     );
   }
 
   if (isLoading) {
-    return <ActivityIndicator size={40} style={{ flex: 1, alignSelf: 'center' }} />;
+    return <SkeletonLoader />;
   }
 
-  if (weather.error) {
+  if (error) {
     return (
-      <SafeAreaView>
-        <SearchBar />
-        <Text>Ciudad no encontrada.</Text>
-      </SafeAreaView>
+      <ImageBackground source={getBackground(weather)} resizeMode="cover" style={styles.background}>
+        <SafeAreaView>
+          <SearchBar />
+          <Text>Ciudad no encontrada.</Text>
+        </SafeAreaView>
+      </ImageBackground>
     );
   }
 
   return (
-    <LinearGradient
-      colors={[
-        '#abc4ff',
-        '#d7e3fc',
-        '#abc4ff',
-        '#ccdbfd',
-        '#abc4ff',
-        '#d7e3fc',
-        '#d7e3fc',
-        '#abc4ff',
-        '#ccdbfd',
-      ]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={{ flex: 1 }}>
-      <SearchBar />
+    <ImageBackground source={getBackground(weather)} resizeMode="cover" style={styles.background}>
+      <SafeAreaView>
+        <ScrollView>
+          <BlurView
+            style={styles.blurBackground}
+            intensity={7}
+            tint="dark"
+            experimentalBlurMethod="dimezisBlurView">
+            <SearchBar />
+          </BlurView>
 
-      {isLoading && <Text>Cargando...</Text>}
+          {isLoading && <Text>Cargando...</Text>}
 
-      {weather && (
-        <View>
-          <MainTemp weather={weather} />
+          {weather && (
+            <View>
+              <MainTemp weather={weather} />
 
-          <ForeCast />
-        </View>
-      )}
-    </LinearGradient>
+              <ForeCast />
+            </View>
+          )}
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'space-evenly',
   },
   background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
+    width: '100%',
     height: '100%',
+  },
+  blurBackground: {
+    marginHorizontal: 16,
+    overflow: 'hidden',
+    borderRadius: 20,
   },
 });

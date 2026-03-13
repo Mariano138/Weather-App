@@ -12,7 +12,14 @@
       "tsconfigPaths": true
     },
 
-    "plugins": [],
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow this app to access your location."
+        }
+      ]
+    ],
 
     "orientation": "portrait",
     "icon": "./assets/icon.png",

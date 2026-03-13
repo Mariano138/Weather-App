@@ -1,57 +1,68 @@
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { TextInput } from 'react-native-gesture-handler';
+import { Button, StyleSheet, TouchableOpacity, View, TextInput } from 'react-native';
+import React, { useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useWeatherStore } from 'store/weatherStore';
-import { BlurView } from 'expo-blur';
+import useLocation from 'hooks/useLocation';
 
 export default function SearchBar() {
   const { fetchWeather, city, setCity } = useWeatherStore();
+  const { getLocation, cityLocation } = useLocation();
+
+  useEffect(() => {
+    if (cityLocation) {
+      fetchWeather(cityLocation);
+    }
+  }, [cityLocation]);
+
   return (
     <View style={styles.container}>
-      <BlurView intensity={80} style={StyleSheet.absoluteFill} />
-      <View style={styles.content}>
-        <TextInput
-          style={styles.input}
-          placeholder="Ingrese una ciudad..."
-          value={city}
-          onChangeText={setCity}
-        />
-        <TouchableOpacity style={styles.button} onPress={() => fetchWeather()}>
-          <Feather name="search" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
+      <TextInput
+        style={[styles.input, styles.textShadow]}
+        placeholder="Ingrese una ciudad..."
+        placeholderTextColor="#fff"
+        value={city}
+        onChangeText={setCity}
+      />
+      <TouchableOpacity style={styles.button} onPress={() => fetchWeather()}>
+        <Feather style={styles.textShadow} name="search" size={24} color="white" />
+      </TouchableOpacity>
+      <Button
+        title="getLocation"
+        onPress={() => {
+          console.log('BOTON PRESIONADO');
+          getLocation();
+        }}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    margin: 16,
-    borderRadius: 20,
-    overflow: 'hidden',
-    height: 80,
-  },
-  content: {
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    padding: 10,
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    marginHorizontal: 16,
   },
   input: {
     borderColor: '#ffffff',
-    borderWidth: 1,
+    borderWidth: 3,
     width: '80%',
     borderRadius: 10,
+    fontSize: 20,
     color: '#fff',
   },
   button: {
     justifyContent: 'center',
     backgroundColor: '#9ba9fc38',
     borderColor: '#ffffff',
-    borderWidth: 1,
+    borderWidth: 3,
     borderRadius: 10,
     padding: 10,
+  },
+  textShadow: {
+    textShadowColor: 'rgba(0,0,0,0.6)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
 });
