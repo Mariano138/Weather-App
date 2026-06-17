@@ -25,9 +25,9 @@ export default function useLocation() {
       console.log('obteniendo ubicación');
 
       let currentLocation = await Location.getCurrentPositionAsync({});
-      console.log('LOCATION:', currentLocation);
 
       setLocation(currentLocation);
+      console.log('LOCATION:', currentLocation);
 
       const adress = await Location.reverseGeocodeAsync({
         latitude: currentLocation.coords.latitude,

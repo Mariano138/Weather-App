@@ -14,6 +14,7 @@ interface WeatherStore {
   getDateNumber: (dt: number) => string;
   capitalizeFirstLetter: (text: string) => string;
   loadCity: () => Promise<void>;
+  searchCities: (cityToSearch: string) => void;
 }
 
 export const useWeatherStore = create<WeatherStore>((set, get) => ({
@@ -80,6 +81,17 @@ export const useWeatherStore = create<WeatherStore>((set, get) => ({
       set({ error: 'Error de conexión' });
     } finally {
       set({ isLoading: false });
+    }
+  },
+
+  searchCities: async (cityToSearch) => {
+    try {
+      const response = await fetch(
+        `http://api.openweathermap.org/geo/1.0/direct?q=${cityToSearch}&limit=${5}&appid={13477663e3711c3e87ce05a5d7d72bb6}`
+      );
+      const data = await response.json();
+    } catch (err) {
+      set({ error: 'Error al buscar ciudades' });
     }
   },
 }));

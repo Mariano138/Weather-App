@@ -1,14 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
 import useRandomCity from 'hooks/useRandomCity';
 import useTypingText from 'hooks/useTypingText';
 import Animated from 'react-native-reanimated';
 import { BlinkAnimation } from 'animations/BlinkAnimation';
+import useLocation from 'hooks/useLocation';
+import { useWeatherStore } from 'store/weatherStore';
 
 export default function WelcomeView() {
   const cities = useRandomCity();
   const typing = useTypingText(cities);
   const blink = BlinkAnimation;
+  const { getLocation, cityLocation } = useLocation();
+  const { fetchWeather } = useWeatherStore();
+
+  useEffect(() => {
+    if (cityLocation) {
+      fetchWeather(cityLocation);
+    }
+  }, [cityLocation]);
 
   return (
     <View style={styles.container}>
@@ -31,6 +41,7 @@ export default function WelcomeView() {
       <Text style={[styles.descriptionText, styles.textShadow]}>
         Descubre el clima de cualquier ciudad
       </Text>
+      <Button title="Usa tu ubicación actual" onPress={() => getLocation()} />
     </View>
   );
 }
