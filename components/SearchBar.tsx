@@ -1,14 +1,25 @@
-import { StyleSheet, TouchableOpacity, View, TextInput, Keyboard, Text } from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  TextInput,
+  Keyboard,
+  Text,
+  FlatList,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { useWeatherStore } from 'store/weatherStore';
 import useLocation from 'hooks/useLocation';
+import { cities } from 'helpers/cities';
+import Octicons from '@expo/vector-icons/Octicons';
 
 export default function SearchBar() {
   const { fetchWeather, city, setCity } = useWeatherStore();
   const { getLocation } = useLocation();
   const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const citiesList = cities;
 
   useEffect(() => {
     const showSub = Keyboard.addListener('keyboardDidShow', () => {
@@ -27,9 +38,35 @@ export default function SearchBar() {
 
   useEffect(() => {
     if (city.length >= 3) {
-      fetchWeather();
+      const filtered = citiesList
+        .filter((cityName) => cityName.toLowerCase().includes(city.toLowerCase()))
+        .slice(0, 5);
+      setSuggestions(filtered);
+    } else {
+      setSuggestions([]);
     }
   }, [city]);
+
+  const renderItem = ({ item }: { item: string }) => {
+    return (
+      <View style={{ padding: 3 }}>
+        <View
+          style={{
+            height: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+          }}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            setCity('');
+            setSuggestions([]);
+            fetchWeather(item);
+          }}>
+          <Text style={styles.cityText}>{item}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -47,10 +84,21 @@ export default function SearchBar() {
       </View>
       <View style={styles.locationContainer}>
         {keyboardVisible && (
-          <TouchableOpacity style={styles.buttonContainer} onPress={() => getLocation()}>
-            <Text style={styles.textShadow}>Usar tu ubicación actual</Text>
-          </TouchableOpacity>
+          <View style={styles.locationContainerSon}>
+            <TouchableOpacity onPress={() => getLocation()}>
+              <Text style={styles.cityText}>
+                <Octicons style={styles.textShadow} name="location" size={24} color="black" />
+                Usar tu ubicación actual
+              </Text>
+            </TouchableOpacity>
+          </View>
         )}
+        <FlatList
+          data={suggestions}
+          renderItem={renderItem}
+          keyExtractor={(item) => item}
+          keyboardShouldPersistTaps="always"
+        />
       </View>
     </View>
   );
@@ -90,11 +138,13 @@ const styles = StyleSheet.create({
   },
   locationContainer: {
     flexDirection: 'column',
+    backgroundColor: '#fcfbfb',
   },
-  buttonContainer: {
-    borderColor: '#ffffff',
-    borderWidth: 3,
-    borderRadius: 10,
-    padding: 10,
+  locationContainerSon: {
+    gap: 5,
+    padding: 15,
+  },
+  cityText: {
+    fontWeight: '600',
   },
 });

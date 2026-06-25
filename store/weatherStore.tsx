@@ -87,7 +87,7 @@ export const useWeatherStore = create<WeatherStore>((set, get) => ({
   searchCities: async (cityToSearch) => {
     try {
       const response = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${cityToSearch}&limit=${5}&appid={13477663e3711c3e87ce05a5d7d72bb6}`
+        `http://api.openweathermap.org/geo/1.0/direct?q=${cityToSearch}&limit=${5}&appid={your appi key}`
       );
       const data = await response.json();
     } catch (err) {

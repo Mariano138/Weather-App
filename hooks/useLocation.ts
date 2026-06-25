@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import * as Location from 'expo-location';
+import { useWeatherStore } from 'store/weatherStore';
 
 export default function useLocation() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
-  const [cityLocation, setCityLocation] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { fetchWeather } = useWeatherStore();
 
   const getLocation = async () => {
     console.log('getLocation ejecutándose');
@@ -34,8 +35,9 @@ export default function useLocation() {
         longitude: currentLocation.coords.longitude,
       });
 
-      if (adress.length > 0) {
-        setCityLocation(adress[0].city);
+      if (adress.length > 0 && adress[0].city) {
+        const city = adress[0].city;
+        await fetchWeather(city);
       }
     } catch (error) {
       console.log('ERROR:', error);
@@ -44,5 +46,5 @@ export default function useLocation() {
     }
   };
 
-  return { location, errorMsg, isLoading, getLocation, cityLocation };
+  return { location, errorMsg, isLoading, getLocation };
 }

@@ -57,15 +57,14 @@ export default function Home() {
   return (
     <ImageBackground source={getBackground(weather)} resizeMode="cover" style={styles.background}>
       <SafeAreaView>
+        <BlurView
+          style={styles.blurBackground}
+          intensity={7}
+          tint="dark"
+          experimentalBlurMethod="dimezisBlurView">
+          <SearchBar />
+        </BlurView>
         <ScrollView>
-          <BlurView
-            style={styles.blurBackground}
-            intensity={7}
-            tint="dark"
-            experimentalBlurMethod="dimezisBlurView">
-            <SearchBar />
-          </BlurView>
-
           {isLoading && <Text>Cargando...</Text>}
 
           {weather && (
