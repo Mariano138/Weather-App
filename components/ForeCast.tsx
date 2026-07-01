@@ -2,7 +2,6 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useWeatherStore } from 'store/weatherStore';
 import formatTemp from 'helpers/formatTemp';
-import { BlurView } from 'expo-blur';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { ForecastItem } from 'interface/weatherInterface';
 
@@ -11,12 +10,7 @@ export default function ForeCast() {
   return (
     <View style={{ gap: 10 }}>
       {weather?.forecast.map((item: ForecastItem, index: number) => (
-        <BlurView
-          key={index}
-          intensity={10}
-          experimentalBlurMethod="dimezisBlurView"
-          tint="dark"
-          style={styles.blurBackground}>
+        <View key={index} style={styles.container}>
           <View style={styles.leftContainer}>
             <View style={styles.dateContainer}>
               <Text style={[styles.textShadow, { color: '#fff' }]}>
@@ -53,20 +47,22 @@ export default function ForeCast() {
               {item.main.humidity}%
             </Text>
           </View>
-        </BlurView>
+        </View>
       ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  blurBackground: {
+  container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 20,
     marginHorizontal: 16,
-    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
     borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.25)',
   },
   dateContainer: {
     justifyContent: 'center',

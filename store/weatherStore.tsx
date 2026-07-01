@@ -14,7 +14,6 @@ interface WeatherStore {
   getDateNumber: (dt: number) => string;
   capitalizeFirstLetter: (text: string) => string;
   loadCity: () => Promise<void>;
-  searchCities: (cityToSearch: string) => void;
 }
 
 export const useWeatherStore = create<WeatherStore>((set, get) => ({
@@ -67,31 +66,23 @@ export const useWeatherStore = create<WeatherStore>((set, get) => ({
         `https://weather-app-hazel-beta-59.vercel.app/api/weather?city=${encodeURIComponent(query)}`
       );
       const data = await response.json();
+      console.log(data);
 
       if (data.cod && data.cod !== '200') {
-        set({ error: 'Ciudad no encontrada' });
-        set({ weather: null });
-        set({ isLoading: false });
+        set({
+          error: 'Ciudad no encontrada',
+          weather: null,
+          isLoading: false,
+        });
         return;
       } else {
         set({ weather: data });
         await AsyncStorage.setItem('savedCity', query);
       }
-    } catch (err) {
+    } catch (error) {
       set({ error: 'Error de conexión' });
     } finally {
       set({ isLoading: false });
-    }
-  },
-
-  searchCities: async (cityToSearch) => {
-    try {
-      const response = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${cityToSearch}&limit=${5}&appid={your appi key}`
-      );
-      const data = await response.json();
-    } catch (err) {
-      set({ error: 'Error al buscar ciudades' });
     }
   },
 }));

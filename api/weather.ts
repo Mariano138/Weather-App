@@ -24,14 +24,23 @@ export default async function handler(req, res) {
       )}&appid=${process.env.WEATHER_KEY}&units=metric&lang=es`
     );
 
+    const current = await currentRes.json();
+
+    if (!currentRes.ok) {
+      return res.status(currentRes.status).json(current);
+    }
+
     const forecastRes = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(
         city
       )}&appid=${process.env.WEATHER_KEY}&units=metric&lang=es`
     );
 
-    const current = await currentRes.json();
     const forecastRaw = await forecastRes.json();
+
+    if (!forecastRes.ok) {
+      return res.status(forecastRes.status).json(forecastRaw);
+    }
 
     const forecastDaily = forecastRaw.list.filter((item) => item.dt_txt.includes('12:00:00'));
 
@@ -40,11 +49,17 @@ export default async function handler(req, res) {
       forecast: forecastDaily,
     };
 
-    cache.set(key, { data: responseData, time: Date.now() });
+    cache.set(key, {
+      data: responseData,
+      time: Date.now(),
+    });
 
     return res.status(200).json(responseData);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: 'Weather service failed' });
+
+    return res.status(500).json({
+      error: 'Weather service failed',
+    });
   }
 }
