@@ -42,11 +42,9 @@ export default async function handler(req, res) {
       return res.status(forecastRes.status).json(forecastRaw);
     }
 
-    const forecastDaily = forecastRaw.list.filter((item) => item.dt_txt.includes('12:00:00'));
-
     const responseData = {
       current,
-      forecast: forecastDaily,
+      forecast: forecastRaw,
     };
 
     cache.set(key, {
