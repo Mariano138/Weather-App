@@ -42,9 +42,44 @@ export default async function handler(req, res) {
       return res.status(forecastRes.status).json(forecastRaw);
     }
 
+    const days: Record<
+      string,
+      {
+        representative: any;
+        min: number;
+        max: number;
+      }
+    > = {};
+
+    for (const item of forecastRaw.list) {
+      const date = item.dt_txt.split(' ')[0];
+
+      if (!days[date]) {
+        days[date] = {
+          representative: item,
+          min: item.main.temp.min,
+          max: item.main.temp.max,
+        };
+      } else {
+        days[date].min = Math.min(days[date].min, item.main.temp_min);
+        days[date].max = Math.max(days[date].max, item.main.temp_max);
+
+        if (item.dt_txt.includes('12:00:00')) {
+          days[date].representative = item;
+        }
+      }
+    }
+
+    const forecastDaily = Object.values(days).map((day) => {
+      day.representative.main.temp_min = day.min;
+      day.representative.main.temp_max = day.max;
+
+      return day.representative;
+    });
+
     const responseData = {
       current,
-      forecast: forecastRaw,
+      forecast: forecastDaily,
     };
 
     cache.set(key, {
