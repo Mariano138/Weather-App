@@ -57,8 +57,8 @@ export default async function handler(req, res) {
       if (!days[date]) {
         days[date] = {
           representative: item,
-          min: item.main.temp.min,
-          max: item.main.temp.max,
+          min: item.main.temp_min,
+          max: item.main.temp_max,
         };
       } else {
         days[date].min = Math.min(days[date].min, item.main.temp_min);
