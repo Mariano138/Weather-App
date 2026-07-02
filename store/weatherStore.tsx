@@ -66,20 +66,15 @@ export const useWeatherStore = create<WeatherStore>((set, get) => ({
         `https://weather-app-hazel-beta-59.vercel.app/api/weather?city=${encodeURIComponent(query)}`
       );
       const data = await response.json();
-      console.log(data);
 
       if (data.cod && data.cod !== '200') {
-        set({
-          error: 'Ciudad no encontrada',
-          weather: null,
-          isLoading: false,
-        });
+        set({ error: 'Ciudad no encontrada', weather: null, isLoading: false });
         return;
       } else {
         set({ weather: data });
         await AsyncStorage.setItem('savedCity', query);
       }
-    } catch (error) {
+    } catch (err) {
       set({ error: 'Error de conexión' });
     } finally {
       set({ isLoading: false });

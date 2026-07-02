@@ -40,7 +40,7 @@ export default function Home() {
     return <SkeletonLoader />;
   }
 
-  if (error || weather == undefined) {
+  if (error) {
     return (
       <ImageBackground
         source={require('../assets/sun.png')}
