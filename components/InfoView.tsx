@@ -6,8 +6,8 @@ export default function InfoView() {
   return (
     <View style={styles.container}>
       <View style={styles.cardContainer}>
-        <Feather style={styles.textShadow} name="sun" size={33} color="white" />
-        <Text style={[styles.textStyle, styles.textShadow]}>Clima</Text>
+        <Feather style={styles.textShadow} name="thermometer" size={33} color="white" />
+        <Text style={[styles.textStyle, styles.textShadow]}>Temperatura</Text>
       </View>
       <View style={styles.cardContainer}>
         <Feather style={styles.textShadow} name="droplet" size={33} color="white" />

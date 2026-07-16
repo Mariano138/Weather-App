@@ -13,13 +13,15 @@ import { useWeatherStore } from 'store/weatherStore';
 import useLocation from 'hooks/useLocation';
 import { cities } from 'helpers/cities';
 import Octicons from '@expo/vector-icons/Octicons';
+import Animated from 'react-native-reanimated';
+import PopAnimation from 'animations/PopAnimation';
 
 export default function SearchBar() {
   const { fetchWeather, city, setCity } = useWeatherStore();
   const { getLocation } = useLocation();
   const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
-  const citiesList = cities;
+  const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
 
   useEffect(() => {
     const showSub = Keyboard.addListener('keyboardDidShow', () => {
@@ -38,7 +40,7 @@ export default function SearchBar() {
 
   useEffect(() => {
     if (city.length >= 3) {
-      const filtered = citiesList
+      const filtered = cities
         .filter((cityName) => cityName.toLowerCase().includes(city.toLowerCase()))
         .slice(0, 5);
       setSuggestions(filtered);
@@ -78,10 +80,18 @@ export default function SearchBar() {
           value={city}
           onChangeText={setCity}
         />
-        <TouchableOpacity style={styles.searchButton} onPress={() => fetchWeather(city)}>
-          <Feather style={styles.textShadow} name="search" size={24} color="white" />
-        </TouchableOpacity>
+
+        <Animated.View style={animatedStyle}>
+          <TouchableOpacity
+            style={styles.searchButton}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            onPress={() => fetchWeather(city)}>
+            <Feather style={styles.textShadow} name="search" size={24} color="white" />
+          </TouchableOpacity>
+        </Animated.View>
       </View>
+
       <View style={styles.locationContainer}>
         {keyboardVisible && (
           <View style={styles.locationContainerSon}>
@@ -91,14 +101,15 @@ export default function SearchBar() {
                 Usar tu ubicación actual
               </Text>
             </TouchableOpacity>
+            <FlatList
+              data={suggestions}
+              renderItem={renderItem}
+              keyExtractor={(item) => item}
+              keyboardShouldPersistTaps="always"
+              scrollEnabled={false}
+            />
           </View>
         )}
-        <FlatList
-          data={suggestions}
-          renderItem={renderItem}
-          keyExtractor={(item) => item}
-          keyboardShouldPersistTaps="always"
-        />
       </View>
     </View>
   );

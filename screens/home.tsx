@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useWeatherStore } from 'store/weatherStore';
 import SearchBar from 'components/SearchBar';
-import ForeCast from 'components/ForeCast';
+import Forecast from 'components/Forecast';
 import getBackground from 'helpers/getBackground';
 import WelcomeView from 'components/WelcomeView';
 import DescriptionView from 'components/DescriptionView';
@@ -60,13 +60,14 @@ export default function Home() {
       resizeMode="cover"
       style={styles.imageBackground}>
       <SafeAreaView>
-        <SearchBar />
         <ScrollView>
+          <SearchBar />
+
           {isLoading && <Text>Cargando...</Text>}
           {weather && (
             <View>
               <MainTemp weather={weather} />
-              <ForeCast />
+              <Forecast />
             </View>
           )}
         </ScrollView>
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.2)',
     borderRadius: 20,
     backgroundColor: 'rgba(0,0,0,0.25)',
-    paddingVertical: 20,
+    paddingVertical: 80,
   },
   imageBackground: {
     width: '100%',

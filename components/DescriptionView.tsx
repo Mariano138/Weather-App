@@ -1,13 +1,31 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import useRandomIcons from 'hooks/useRandomIcon';
-import IconAnimation from 'animations/IconAnimation';
+import Animated from 'react-native-reanimated';
+import { Feather } from '@expo/vector-icons';
+import slice from 'animations/SlideAnimation';
 
 export default function DescriptionView() {
-  const icons = useRandomIcons();
   return (
     <View style={styles.container}>
-      <IconAnimation name={icons} />
+      <Animated.View
+        style={[
+          styles.iconsContainer,
+          {
+            animationName: slice,
+            animationIterationCount: 'infinite',
+            animationDuration: '30s',
+          },
+        ]}>
+        <Animated.View>
+          <Feather name="sun" size={40} color="white" />
+        </Animated.View>
+        <Animated.View>
+          <Feather name="moon" size={40} color="white" />
+        </Animated.View>
+        <Animated.View>
+          <Feather name="cloud" size={40} color="white" />
+        </Animated.View>
+      </Animated.View>
       <Text style={[styles.descriptionText, styles.textShadow]}>
         Consulta temperatura, humedad y pronóstico extendido
       </Text>
@@ -20,6 +38,10 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  iconsContainer: {
+    flexDirection: 'row',
+    gap: 40,
   },
   descriptionText: {
     color: '#fff',

@@ -1,16 +1,18 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import useRandomCity from 'hooks/useRandomCity';
 import useTypingText from 'hooks/useTypingText';
 import Animated from 'react-native-reanimated';
 import { BlinkAnimation } from 'animations/BlinkAnimation';
 import useLocation from 'hooks/useLocation';
 import Feather from '@expo/vector-icons/Feather';
+import PopAnimation from 'animations/PopAnimation';
 
 export default function WelcomeView() {
   const cities = useRandomCity();
   const typing = useTypingText(cities);
   const blink = BlinkAnimation;
   const { getLocation } = useLocation();
+  const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
 
   return (
     <View style={styles.container}>
@@ -34,10 +36,16 @@ export default function WelcomeView() {
         Descubre el clima de cualquier ciudad del mundo
       </Text>
       <View style={styles.line}></View>
-      <TouchableOpacity style={styles.buttonSyles} onPress={() => getLocation()}>
-        <Feather style={styles.textShadow} name="map-pin" size={30} color="white" />
-        <Text style={[styles.descriptionText, styles.textShadow]}>Usar mi ubicación actual</Text>
-      </TouchableOpacity>
+      <Animated.View style={animatedStyle}>
+        <TouchableOpacity
+          style={styles.buttonSyles}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          onPress={() => getLocation()}>
+          <Feather style={styles.textShadow} name="map-pin" size={30} color="white" />
+          <Text style={[styles.descriptionText, styles.textShadow]}>Usar mi ubicación actual</Text>
+        </TouchableOpacity>
+      </Animated.View>
       <View style={styles.line}></View>
     </View>
   );

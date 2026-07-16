@@ -1,8 +1,11 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, Pressable, View } from 'react-native';
 import React from 'react';
 import WeatherInterface from 'interface/weatherInterface';
 import formatTemp from 'helpers/formatTemp';
 import { useWeatherStore } from 'store/weatherStore';
+import Animated from 'react-native-reanimated';
+import slice from 'animations/SlideAnimation';
+import ZoomAnimation from 'animations/ZoomAnimation';
 
 interface Props {
   weather: WeatherInterface;
@@ -10,56 +13,68 @@ interface Props {
 
 export default function MainTemp({ weather }: Props) {
   const { capitalizeFirstLetter } = useWeatherStore();
+  const { animatedStyle, handlePressIn, handlePressOut } = ZoomAnimation();
+
   return (
-    <View style={styles.container}>
-      <Text style={[styles.cityName, styles.textShadow]}>{weather.current.name}</Text>
+    <Animated.View style={[styles.container, animatedStyle]}>
+      <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
+        <Text style={[styles.cityName, styles.textShadow]}>{weather.current.name}</Text>
 
-      <View style={styles.line}></View>
+        <View style={styles.line}></View>
 
-      <View style={styles.mainView}>
-        <View style={styles.mainTempContainer}>
-          <Text style={[styles.mainTempText, styles.textShadow]}>
-            {formatTemp(weather.current.main.temp)}°
+        <View style={styles.mainView}>
+          <View style={styles.mainTempContainer}>
+            <Text style={[styles.mainTempText, styles.textShadow]}>
+              {formatTemp(weather.current.main.temp)}°
+            </Text>
+            <Text style={[styles.feelLikeText, styles.textShadow]}>
+              Sensación {formatTemp(weather.current.main.feels_like)}°C
+            </Text>
+          </View>
+          <Animated.View
+            style={[
+              styles.iconContainer,
+              {
+                animationName: slice,
+                animationIterationCount: 'infinite',
+                animationDuration: '7s',
+              },
+            ]}>
+            <Image
+              resizeMode="contain"
+              style={styles.icon}
+              source={{
+                uri: `https://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`,
+              }}
+            />
+          </Animated.View>
+        </View>
+
+        <View style={styles.line}></View>
+
+        <View style={styles.humidityContainer}>
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            {capitalizeFirstLetter(weather.current.weather[0].description)}
           </Text>
-          <Text style={[styles.feelLikeText, styles.textShadow]}>
-            Sensación {formatTemp(weather.current.main.feels_like)}°C
+          <View style={styles.verticalLine} />
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            Humedad: {weather.current.main.humidity}%
           </Text>
         </View>
-        <View style={styles.iconContainer}>
-          <Image
-            resizeMode="contain"
-            style={styles.icon}
-            source={{
-              uri: `https://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`,
-            }}
-          />
+
+        <View style={styles.line} />
+
+        <View style={styles.humidityContainer}>
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            Max: {formatTemp(weather.current.main.temp_max)}°C
+          </Text>
+          <View style={styles.verticalLine} />
+          <Text style={[styles.secondaryText, styles.textShadow]}>
+            Min: {formatTemp(weather.current.main.temp_min)}°C
+          </Text>
         </View>
-      </View>
-
-      <View style={styles.line}></View>
-
-      <View style={styles.humidityContainer}>
-        <Text style={[styles.secondaryText, styles.textShadow]}>
-          {capitalizeFirstLetter(weather.current.weather[0].description)}
-        </Text>
-        <View style={styles.verticalLine} />
-        <Text style={[styles.secondaryText, styles.textShadow]}>
-          Humedad: {weather.current.main.humidity}%
-        </Text>
-      </View>
-
-      <View style={styles.line} />
-
-      <View style={styles.humidityContainer}>
-        <Text style={[styles.secondaryText, styles.textShadow]}>
-          Max: {formatTemp(weather.current.main.temp_max)}°C
-        </Text>
-        <View style={styles.verticalLine} />
-        <Text style={[styles.secondaryText, styles.textShadow]}>
-          Min: {formatTemp(weather.current.main.temp_min)}°C
-        </Text>
-      </View>
-    </View>
+      </Pressable>
+    </Animated.View>
   );
 }
 

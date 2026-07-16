@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Feather } from '@expo/vector-icons';
 
 type IconName = React.ComponentProps<typeof Feather>['name'];
 
