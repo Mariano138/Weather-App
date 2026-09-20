@@ -3,12 +3,13 @@ const TTL = 10 * 60 * 1000;
 
 export default async function handler(req, res) {
   const city = req.query.city;
+  const language = req.query.lang === 'en' ? 'en' : 'es';
 
   if (!city) {
     return res.status(400).json({ error: 'City is required' });
   }
 
-  const key = city.toLowerCase();
+  const key = `${city.toLowerCase()}-${language}`;
 
   if (cache.has(key)) {
     const { data, time } = cache.get(key);
@@ -21,7 +22,7 @@ export default async function handler(req, res) {
     const currentRes = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
         city
-      )}&appid=${process.env.WEATHER_KEY}&units=metric&lang=es`
+      )}&appid=${process.env.WEATHER_KEY}&units=metric&lang=${language}`
     );
 
     const current = await currentRes.json();
@@ -33,7 +34,7 @@ export default async function handler(req, res) {
     const forecastRes = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(
         city
-      )}&appid=${process.env.WEATHER_KEY}&units=metric&lang=es`
+      )}&appid=${process.env.WEATHER_KEY}&units=metric&lang=${language}`
     );
 
     const forecastRaw = await forecastRes.json();
