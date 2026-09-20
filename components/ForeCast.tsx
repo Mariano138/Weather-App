@@ -10,7 +10,7 @@ export default function Forecast() {
   return (
     <View style={{ gap: 10 }}>
       {weather?.forecast.map((item: ForecastItem, index: number) => (
-        <ForecastCard item={item} index={index} />
+        <ForecastCard key={index} item={item} index={index} />
       ))}
     </View>
   );

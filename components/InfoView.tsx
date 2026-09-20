@@ -1,21 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Feather from '@expo/vector-icons/Feather';
+import { useTranslation } from 'react-i18next';
 
 export default function InfoView() {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <View style={styles.cardContainer}>
         <Feather style={styles.textShadow} name="thermometer" size={33} color="white" />
-        <Text style={[styles.textStyle, styles.textShadow]}>Temperatura</Text>
+        <Text style={[styles.textStyle, styles.textShadow]}>{t('home.infoTextTemp')}</Text>
       </View>
       <View style={styles.cardContainer}>
         <Feather style={styles.textShadow} name="droplet" size={33} color="white" />
-        <Text style={[styles.textStyle, styles.textShadow]}>Humedad</Text>
+        <Text style={[styles.textStyle, styles.textShadow]}>{t('home.infoTextHumidity')}</Text>
       </View>
       <View style={styles.cardContainer}>
         <Feather style={styles.textShadow} name="calendar" size={33} color="white" />
-        <Text style={[styles.textStyle, styles.textShadow]}>Pronóstico</Text>
+        <Text style={[styles.textStyle, styles.textShadow]}>{t('home.infoTextForecast')}</Text>
       </View>
     </View>
   );

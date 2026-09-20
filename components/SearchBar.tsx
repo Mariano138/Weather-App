@@ -15,6 +15,7 @@ import { cities } from 'helpers/cities';
 import Octicons from '@expo/vector-icons/Octicons';
 import Animated from 'react-native-reanimated';
 import PopAnimation from 'animations/PopAnimation';
+import { useTranslation } from 'react-i18next';
 
 export default function SearchBar() {
   const { fetchWeather, city, setCity } = useWeatherStore();
@@ -22,6 +23,7 @@ export default function SearchBar() {
   const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const showSub = Keyboard.addListener('keyboardDidShow', () => {
@@ -75,7 +77,7 @@ export default function SearchBar() {
       <View style={styles.searchBarContainer}>
         <TextInput
           style={[styles.input, styles.textShadow]}
-          placeholder="Ingrese una ciudad..."
+          placeholder={t('home.searchBar')}
           placeholderTextColor="#fff"
           value={city}
           onChangeText={setCity}
@@ -98,7 +100,7 @@ export default function SearchBar() {
             <TouchableOpacity onPress={() => getLocation()}>
               <Text style={styles.cityText}>
                 <Octicons style={styles.textShadow} name="location" size={24} color="black" />
-                Usar tu ubicación actual
+                {t('home.welcomeButton')}
               </Text>
             </TouchableOpacity>
             <FlatList

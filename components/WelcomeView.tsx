@@ -6,6 +6,7 @@ import { BlinkAnimation } from 'animations/BlinkAnimation';
 import useLocation from 'hooks/useLocation';
 import Feather from '@expo/vector-icons/Feather';
 import PopAnimation from 'animations/PopAnimation';
+import { useTranslation } from 'react-i18next';
 
 export default function WelcomeView() {
   const cities = useRandomCity();
@@ -13,6 +14,7 @@ export default function WelcomeView() {
   const blink = BlinkAnimation;
   const { getLocation } = useLocation();
   const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
@@ -32,9 +34,7 @@ export default function WelcomeView() {
           |
         </Animated.Text>
       </View>
-      <Text style={[styles.descriptionText, styles.textShadow]}>
-        Descubre el clima de cualquier ciudad del mundo
-      </Text>
+      <Text style={[styles.descriptionText, styles.textShadow]}>{t('home.welcomeText')}</Text>
       <View style={styles.line}></View>
       <Animated.View style={animatedStyle}>
         <TouchableOpacity
@@ -43,7 +43,7 @@ export default function WelcomeView() {
           onPressOut={handlePressOut}
           onPress={() => getLocation()}>
           <Feather style={styles.textShadow} name="map-pin" size={30} color="white" />
-          <Text style={[styles.descriptionText, styles.textShadow]}>Usar mi ubicación actual</Text>
+          <Text style={[styles.descriptionText, styles.textShadow]}>{t('home.welcomeButton')}</Text>
         </TouchableOpacity>
       </Animated.View>
       <View style={styles.line}></View>

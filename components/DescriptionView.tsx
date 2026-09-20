@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 import Animated from 'react-native-reanimated';
 import { Feather } from '@expo/vector-icons';
 import slice from 'animations/SlideAnimation';
+import { useTranslation } from 'react-i18next';
 
 export default function DescriptionView() {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <Animated.View
@@ -26,9 +27,7 @@ export default function DescriptionView() {
           <Feather name="cloud" size={40} color="white" />
         </Animated.View>
       </Animated.View>
-      <Text style={[styles.descriptionText, styles.textShadow]}>
-        Consulta temperatura, humedad y pronóstico extendido
-      </Text>
+      <Text style={[styles.descriptionText, styles.textShadow]}>{t('home.descriptionText')}</Text>
       <View style={styles.line}></View>
     </View>
   );

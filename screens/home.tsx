@@ -12,6 +12,7 @@ import WelcomeView from 'components/WelcomeView';
 import DescriptionView from 'components/DescriptionView';
 import SkeletonLoader from 'components/SkeletonLoader';
 import InfoView from 'components/InfoView';
+import 'i18n/i18n.config';
 
 export default function Home() {
   const { isLoading, weather, error } = useWeatherStore();

@@ -1,0 +1,13 @@
+{
+  "home": {
+    "searchBar": "Busca una ciudad",
+    "welcomeText": "Descubre el clima de cualquier ciudad del mundo",
+    "welcomeButton": "Usar mi ubicación actual",
+    "descriptionText": "Consulta temperatura, humedad y pronóstico extendido",
+    "infoTextTemp": "Temperatura",
+    "infoTextHumidity": "Humedad",
+    "infoTextForecast": "Pronóstico"
+  },
+  "greet": "hello word",
+  "name": "Name"
+}
