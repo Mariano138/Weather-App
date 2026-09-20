@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import WeatherInterface from 'interface/weatherInterface';
 import { create } from 'zustand';
+import i18next from '../i18n/i18n.config';
 
 interface WeatherStore {
   weather: WeatherInterface | null;
@@ -62,15 +63,15 @@ export const useWeatherStore = create<WeatherStore>((set, get) => ({
     try {
       set({ isLoading: true, error: null });
 
+      const language = i18next.language === 'en' ? 'en' : 'es';
+
       const response = await fetch(
-        `https://weather-app-hazel-beta-59.vercel.app/api/weather?city=${encodeURIComponent(query)}`
+        `https://weather-app-hazel-beta-59.vercel.app/api/weather?city=${encodeURIComponent(query)}&lang=${language}`
       );
       const data = await response.json();
 
       if (data.cod && data.cod !== '200') {
-        set({ error: 'Ciudad no encontrada' });
-        set({ weather: null });
-        set({ isLoading: false });
+        set({ error: 'Ciudad no encontrada', weather: null, isLoading: false });
         return;
       } else {
         set({ weather: data });
