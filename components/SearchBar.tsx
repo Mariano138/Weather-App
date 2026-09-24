@@ -8,11 +8,12 @@ import {
   FlatList,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Feather } from '@expo/vector-icons';
 import { useWeatherStore } from 'store/weatherStore';
 import useLocation from 'hooks/useLocation';
 import { cities } from 'helpers/cities';
+import { Feather } from '@expo/vector-icons';
 import Octicons from '@expo/vector-icons/Octicons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Animated from 'react-native-reanimated';
 import PopAnimation from 'animations/PopAnimation';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +24,8 @@ export default function SearchBar() {
   const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState<string>('EN');
 
   useEffect(() => {
     const showSub = Keyboard.addListener('keyboardDidShow', () => {
@@ -72,6 +74,16 @@ export default function SearchBar() {
     );
   };
 
+  const changeLanguage = () => {
+    if (i18n.language === 'en') {
+      i18n.changeLanguage('es');
+      setLanguage('ES');
+    } else {
+      i18n.changeLanguage('en');
+      setLanguage('EN');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -92,6 +104,10 @@ export default function SearchBar() {
             <Feather style={styles.textShadow} name="search" size={24} color="white" />
           </TouchableOpacity>
         </Animated.View>
+        <TouchableOpacity style={styles.languageButton} onPress={changeLanguage}>
+          <MaterialIcons name="language" size={20} color="white" />
+          <Text style={[styles.textShadow, styles.languageText]}>{language}</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.locationContainer}>
@@ -144,6 +160,22 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     padding: 10,
+  },
+  languageButton: {
+    flexDirection: 'row',
+    gap: 5,
+    position: 'absolute',
+    bottom: -35,
+    right: 0,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.60)',
+  },
+  languageText: {
+    color: '#fff',
   },
   textShadow: {
     textShadowColor: 'rgba(0,0,0,0.6)',

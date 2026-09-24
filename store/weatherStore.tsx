@@ -36,7 +36,8 @@ export const useWeatherStore = create<WeatherStore>((set, get) => ({
   getDayName: (dt, index) => {
     const date = new Date(dt * 1000);
     // if (index === 0) return 'Mañana';
-    const day = date.toLocaleDateString('es-ES', { weekday: 'short' });
+    const language = i18next.language === 'en' ? 'en-US' : 'es-EN';
+    const day = date.toLocaleDateString(language, { weekday: 'short' });
     const capitalize = (str: string) => str.toUpperCase();
 
     return capitalize(day);

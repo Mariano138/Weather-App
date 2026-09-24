@@ -6,6 +6,7 @@ import { useWeatherStore } from 'store/weatherStore';
 import Animated from 'react-native-reanimated';
 import slice from 'animations/SlideAnimation';
 import ZoomAnimation from 'animations/ZoomAnimation';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   weather: WeatherInterface;
@@ -14,6 +15,7 @@ interface Props {
 export default function MainTemp({ weather }: Props) {
   const { capitalizeFirstLetter } = useWeatherStore();
   const { animatedStyle, handlePressIn, handlePressOut } = ZoomAnimation();
+  const { t } = useTranslation();
 
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
@@ -28,7 +30,7 @@ export default function MainTemp({ weather }: Props) {
               {formatTemp(weather.current.main.temp)}°
             </Text>
             <Text style={[styles.feelLikeText, styles.textShadow]}>
-              Sensación {formatTemp(weather.current.main.feels_like)}°C
+              {t('forecast.feelsLike')} {formatTemp(weather.current.main.feels_like)}°C
             </Text>
           </View>
           <Animated.View
@@ -58,7 +60,7 @@ export default function MainTemp({ weather }: Props) {
           </Text>
           <View style={styles.verticalLine} />
           <Text style={[styles.secondaryText, styles.textShadow]}>
-            Humedad: {weather.current.main.humidity}%
+            {t('forecast.humidity')}: {weather.current.main.humidity}%
           </Text>
         </View>
 

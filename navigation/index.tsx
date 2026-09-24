@@ -1,13 +1,20 @@
 import { createStaticNavigation, StaticParamList } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import home from '../screens/home';
+import weatherScreen from 'screens/weatherScreen';
 
 const Stack = createStackNavigator({
   screens: {
     Home: {
       screen: home,
       options: {
-        headerShown: false,
+        headerShown: true,
+      },
+    },
+    WeatherScreen: {
+      screen: weatherScreen,
+      options: {
+        headerShown: true,
       },
     },
   },

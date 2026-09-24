@@ -1,6 +1,6 @@
 {
   "home": {
-    "searchBar": "Search city",
+    "searchBar": "Search for a city",
     "welcomeText": "Discover the weather in any city around the world",
     "welcomeButton": "Use my current location",
     "descriptionText": "Check the temperature, humidity, and extended forecast",
@@ -8,6 +8,9 @@
     "infoTextHumidity": "Humidity",
     "infoTextForecast": "Forecast"
   },
-  "greet": "hello word",
-  "name": "Name"
+
+  "forecast": {
+    "feelsLike": "Feels like",
+    "humidity": "Humidity"
+  }
 }

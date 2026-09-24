@@ -1,4 +1,4 @@
-import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
 import MainTemp from '../components/MainTemp';
@@ -6,16 +6,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useWeatherStore } from 'store/weatherStore';
 import SearchBar from 'components/SearchBar';
-import Forecast from 'components/Forecast';
+import Forecast from 'components/ForeCast';
 import getBackground from 'helpers/getBackground';
 import WelcomeView from 'components/WelcomeView';
 import DescriptionView from 'components/DescriptionView';
 import SkeletonLoader from 'components/SkeletonLoader';
 import InfoView from 'components/InfoView';
 import 'i18n/i18n.config';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
   const { isLoading, weather, error } = useWeatherStore();
+  const navigation = useNavigation();
 
   if (!weather && !isLoading && !error) {
     return (
@@ -30,6 +32,7 @@ export default function Home() {
               <WelcomeView />
               <DescriptionView />
               <InfoView />
+              <Button title="WeatherScreen" onPress={() => navigation.navigate('WeatherScreen')} />
             </View>
           </SafeAreaView>
         </ImageBackground>
