@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { Feather } from '@expo/vector-icons';
-import slice from 'animations/SlideAnimation';
+import slice from '@/animations/SlideAnimation';
 import { useTranslation } from 'react-i18next';
 
 export default function DescriptionView() {
@@ -15,6 +15,7 @@ export default function DescriptionView() {
             animationName: slice,
             animationIterationCount: 'infinite',
             animationDuration: '30s',
+            animationTimingFunction: 'linear',
           },
         ]}>
         <Animated.View>

@@ -1,19 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import useRandomCity from 'hooks/useRandomCity';
-import useTypingText from 'hooks/useTypingText';
+import { StyleSheet, Text, View } from 'react-native';
+import useRandomCity from '@/hooks/useRandomCity';
+import useTypingText from '@/hooks/useTypingText';
 import Animated from 'react-native-reanimated';
-import { BlinkAnimation } from 'animations/BlinkAnimation';
-import useLocation from 'hooks/useLocation';
-import Feather from '@expo/vector-icons/Feather';
-import PopAnimation from 'animations/PopAnimation';
+import { BlinkAnimation } from '@/animations/BlinkAnimation';
 import { useTranslation } from 'react-i18next';
+import LocationButton from '@/components/LocationButton';
 
 export default function WelcomeView() {
   const cities = useRandomCity();
   const typing = useTypingText(cities);
-  const blink = BlinkAnimation;
-  const { getLocation } = useLocation();
-  const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
   const { t } = useTranslation();
 
   return (
@@ -26,7 +21,7 @@ export default function WelcomeView() {
             styles.cityText,
             { fontSize: 30 },
             {
-              animationName: blink,
+              animationName: BlinkAnimation,
               animationDuration: '800ms',
               animationIterationCount: 'infinite',
             },
@@ -36,16 +31,7 @@ export default function WelcomeView() {
       </View>
       <Text style={[styles.descriptionText, styles.textShadow]}>{t('home.welcomeText')}</Text>
       <View style={styles.line}></View>
-      <Animated.View style={animatedStyle}>
-        <TouchableOpacity
-          style={styles.buttonSyles}
-          onPressIn={handlePressIn}
-          onPressOut={handlePressOut}
-          onPress={() => getLocation()}>
-          <Feather style={styles.textShadow} name="map-pin" size={30} color="white" />
-          <Text style={[styles.descriptionText, styles.textShadow]}>{t('home.welcomeButton')}</Text>
-        </TouchableOpacity>
-      </Animated.View>
+      <LocationButton />
       <View style={styles.line}></View>
     </View>
   );
@@ -77,17 +63,6 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0,0,0,0.6)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
-  },
-  buttonSyles: {
-    justifyContent: 'center',
-    backgroundColor: '#9ba9fc38',
-    borderColor: '#ffffff',
-    borderWidth: 3,
-    borderRadius: 10,
-    padding: 10,
-    marginHorizontal: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   line: {
     justifyContent: 'center',

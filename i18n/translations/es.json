@@ -12,5 +12,16 @@
   "forecast": {
     "feelsLike": "Sensación térmica",
     "humidity": "Humedad"
+  },
+
+  "notFound": {
+    "title": "¡Ups! No se encontró",
+    "text": "¡Volver al inicio!"
+  },
+
+  "cityNotFound": {
+    "title": "Ciudad no encontrada",
+    "subTitle": "No pudimos encontrar",
+    "suggestion": "Comprueba el nombre e inténtalo nuevamente"
   }
 }

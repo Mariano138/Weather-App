@@ -3,11 +3,13 @@
     "name": "weather-app",
     "slug": "weather-app",
     "version": "1.0.0",
+    "scheme": "weather-app",
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "experiments": {
-      "tsconfigPaths": true
+      "tsconfigPaths": true,
+      "typedRoutes": true
     },
     "plugins": [
       [
@@ -26,7 +28,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-router"
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",

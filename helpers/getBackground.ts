@@ -1,6 +1,6 @@
-import WeatherInterface from 'interface/weatherInterface';
+import WeatherInterface from '@/interface/weatherInterface';
 
-const getBackground = (weather: WeatherInterface | null) => {
+const getBackground = (weather?: WeatherInterface | null) => {
   if (weather == null) return require('../assets/sun.png');
   const main = weather.current.weather[0].main;
   const current = weather.current.dt;

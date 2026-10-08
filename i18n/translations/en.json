@@ -12,5 +12,16 @@
   "forecast": {
     "feelsLike": "Feels like",
     "humidity": "Humidity"
+  },
+
+  "notFound": {
+    "title": "Oops! Not Found",
+    "text": "Go back to Home screen!"
+  },
+
+  "cityNotFound": {
+    "title": "City not found",
+    "subTitle": "We couldn't find",
+    "suggestion": "Check the name and try again"
   }
 }

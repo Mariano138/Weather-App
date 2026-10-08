@@ -1,14 +1,14 @@
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import ZoomAnimation from 'animations/ZoomAnimation';
+import ZoomAnimation from '@/animations/ZoomAnimation';
 import Animated from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
-import { useWeatherStore } from 'store/weatherStore';
-import formatTemp from 'helpers/formatTemp';
-import { ForecastItem } from 'interface/weatherInterface';
+import formatTemp from '@/helpers/formatTemp';
+import { ForecastItem } from '@/interface/weatherInterface';
+import getDayName from '@/helpers/getDayName';
+import getDateNumber from '@/helpers/getDateNumber';
+import capitalizeFirstLetter from '@/helpers/capitalizeFirstLetter';
 
 export default function ForecastCard({ item, index }: { item: ForecastItem; index: number }) {
-  const { getDayName, getDateNumber, capitalizeFirstLetter } = useWeatherStore();
   const { animatedStyle, handlePressIn, handlePressOut } = ZoomAnimation();
 
   return (
@@ -16,7 +16,7 @@ export default function ForecastCard({ item, index }: { item: ForecastItem; inde
       <Animated.View key={index} style={[styles.container, animatedStyle]}>
         <View style={styles.leftContainer}>
           <View style={styles.dateContainer}>
-            <Text style={[styles.textShadow, { color: '#fff' }]}>{getDayName(item.dt, index)}</Text>
+            <Text style={[styles.textShadow, { color: '#fff' }]}>{getDayName(item.dt)}</Text>
             <Text style={[styles.textShadow, { color: '#fff' }]}>{getDateNumber(item.dt)}</Text>
           </View>
 

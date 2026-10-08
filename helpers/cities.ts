@@ -5,10 +5,8 @@ export const cities = [
   'Rosario',
   'Mendoza',
   'La Plata',
-  'Las Compuertas, Mendoza',
-  'Munro, Buenos Aires',
 
-  // Estados Unidos
+  // United States
   'New York',
   'Los Angeles',
   'Chicago',
@@ -20,55 +18,55 @@ export const cities = [
   'San Francisco',
   'Las Vegas',
 
-  // Canadá
+  // Canada
   'Toronto',
   'Montreal',
   'Vancouver',
   'Ottawa',
 
-  // Brasil
+  // Brazil
   'São Paulo',
   'Rio de Janeiro',
   'Brasília',
   'Salvador',
 
-  // México
+  // Mexico
   'Mexico City',
   'Guadalajara',
   'Monterrey',
   'Cancún',
 
-  // Reino Unido
+  // United Kingdom
   'London',
   'Manchester',
   'Liverpool',
   'Edinburgh',
 
-  // Francia
+  // France
   'Paris',
   'Lyon',
   'Marseille',
   'Nice',
 
-  // España
+  // Spain
   'Madrid',
   'Barcelona',
   'Valencia',
   'Seville',
 
-  // Italia
+  // Italy
   'Rome',
   'Milan',
   'Venice',
   'Naples',
 
-  // Alemania
+  // Germany
   'Berlin',
   'Munich',
   'Hamburg',
   'Frankfurt',
 
-  // Países Bajos
+  // Netherlands
   'Amsterdam',
   'Rotterdam',
 
@@ -76,13 +74,13 @@ export const cities = [
   'Lisbon',
   'Porto',
 
-  // Japón
+  // Japan
   'Tokyo',
   'Osaka',
   'Kyoto',
   'Yokohama',
 
-  // Corea del Sur
+  // South Korea
   'Seoul',
   'Busan',
 
@@ -104,19 +102,19 @@ export const cities = [
   'Brisbane',
   'Perth',
 
-  // Nueva Zelanda
+  // New Zealand
   'Auckland',
   'Wellington',
 
-  // Sudáfrica
+  // South Africa
   'Cape Town',
   'Johannesburg',
 
-  // Emiratos Árabes Unidos
+  // United Arab Emirates
   'Dubai',
   'Abu Dhabi',
 
-  // Rusia
+  // Russia
   'Moscow',
   'Saint Petersburg',
 ];

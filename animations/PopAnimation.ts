@@ -2,7 +2,6 @@ import {
   ReduceMotion,
   useAnimatedStyle,
   useSharedValue,
-  withSequence,
   withSpring,
 } from 'react-native-reanimated';
 

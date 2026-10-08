@@ -1,11 +1,10 @@
 import { Image, StyleSheet, Text, Pressable, View } from 'react-native';
-import React from 'react';
-import WeatherInterface from 'interface/weatherInterface';
-import formatTemp from 'helpers/formatTemp';
-import { useWeatherStore } from 'store/weatherStore';
+import WeatherInterface from '@/interface/weatherInterface';
+import formatTemp from '@/helpers/formatTemp';
+import capitalizeFirstLetter from '@/helpers/capitalizeFirstLetter';
 import Animated from 'react-native-reanimated';
-import slice from 'animations/SlideAnimation';
-import ZoomAnimation from 'animations/ZoomAnimation';
+import slice from '@/animations/SlideAnimation';
+import ZoomAnimation from '@/animations/ZoomAnimation';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 }
 
 export default function MainTemp({ weather }: Props) {
-  const { capitalizeFirstLetter } = useWeatherStore();
   const { animatedStyle, handlePressIn, handlePressOut } = ZoomAnimation();
   const { t } = useTranslation();
 
@@ -39,7 +37,8 @@ export default function MainTemp({ weather }: Props) {
               {
                 animationName: slice,
                 animationIterationCount: 'infinite',
-                animationDuration: '7s',
+                animationDuration: '15s',
+                animationTimingFunction: 'linear',
               },
             ]}>
             <Image

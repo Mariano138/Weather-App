@@ -1,12 +1,12 @@
-import React from 'react';
-import { useWeatherStore } from 'store/weatherStore';
-import { ForecastItem } from 'interface/weatherInterface';
+import WeatherInterface, { ForecastItem } from '@/interface/weatherInterface';
 import { View } from 'react-native';
-import ForecastCard from './ForecastCard';
+import ForecastCard from '@/components/ForecastCard';
 
-export default function Forecast() {
-  const { weather } = useWeatherStore();
+interface Props {
+  weather: WeatherInterface;
+}
 
+export default function Forecast({ weather }: Props) {
   return (
     <View style={{ gap: 10 }}>
       {weather?.forecast.map((item: ForecastItem, index: number) => (

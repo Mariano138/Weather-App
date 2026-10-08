@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 import Feather from '@expo/vector-icons/Feather';
 import { useTranslation } from 'react-i18next';
 
@@ -31,6 +30,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     alignItems: 'center',
+    width: 100,
   },
   textStyle: {
     color: '#fff',
