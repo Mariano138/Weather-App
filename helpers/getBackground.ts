@@ -1,7 +1,7 @@
 import WeatherInterface from '@/interface/weatherInterface';
 
 const getBackground = (weather?: WeatherInterface | null) => {
-  if (weather == null) return require('../assets/sun.png');
+  if (weather == null) return require('../assets/images/sun.png');
   const main = weather.current.weather[0].main;
   const current = weather.current.dt;
   const sunrise = weather.current.sys.sunrise;
@@ -9,24 +9,24 @@ const getBackground = (weather?: WeatherInterface | null) => {
 
   const isNight = current < sunrise || current > sunset;
 
-  if (isNight && main === 'Clear') return require('../assets/night.png');
+  if (isNight && main === 'Clear') return require('../assets/images/night.png');
 
   switch (main) {
     case 'Clear':
-      return require('../assets/sun.png');
+      return require('../assets/images/sun.png');
     case 'Rain':
     case 'Drizzle':
-      return require('../assets/rain.png');
+      return require('../assets/images/rain.png');
     case 'Clouds':
-      return require('../assets/clouds.png');
+      return require('../assets/images/clouds.png');
     case 'Snow':
-      return require('../assets/snow.png');
+      return require('../assets/images/snow.png');
     case 'Thunderstorm':
-      return require('../assets/storm.png');
+      return require('../assets/images/storm.png');
     case 'Mist':
-      return require('../assets/mist.png');
+      return require('../assets/images/mist.png');
     default:
-      return require('../assets/sun.png');
+      return require('../assets/images/sun.png');
   }
 };
 

@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <View style={styles.imageBackground}>
       <ImageBackground
-        source={require('../assets/sun.png')}
+        source={require('../assets/images/sun.png')}
         style={styles.imageBackground}
         resizeMode="cover">
         <SafeAreaView style={styles.container}>
