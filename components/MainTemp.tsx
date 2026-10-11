@@ -1,24 +1,23 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-
-import WeatherInterface from 'interface/weatherInterface';
-import { BlurView } from 'expo-blur';
-import formatTemp from 'helpers/formatTemp';
-import { useWeatherStore } from 'store/weatherStore';
+import { Image, StyleSheet, Text, Pressable, View } from 'react-native';
+import WeatherInterface from '@/interface/weatherInterface';
+import formatTemp from '@/helpers/formatTemp';
+import capitalizeFirstLetter from '@/helpers/capitalizeFirstLetter';
+import Animated from 'react-native-reanimated';
+import slice from '@/animations/SlideAnimation';
+import ZoomAnimation from '@/animations/ZoomAnimation';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   weather: WeatherInterface;
 }
 
 export default function MainTemp({ weather }: Props) {
-  const { capitalizeFirstLetter } = useWeatherStore();
+  const { animatedStyle, handlePressIn, handlePressOut } = ZoomAnimation();
+  const { t } = useTranslation();
+
   return (
-    <View style={styles.container}>
-      <BlurView
-        intensity={10}
-        experimentalBlurMethod="dimezisBlurView"
-        tint="dark"
-        style={styles.blurBackground}>
+    <Animated.View style={[styles.container, animatedStyle]}>
+      <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
         <Text style={[styles.cityName, styles.textShadow]}>{weather.current.name}</Text>
 
         <View style={styles.line}></View>
@@ -29,10 +28,19 @@ export default function MainTemp({ weather }: Props) {
               {formatTemp(weather.current.main.temp)}°
             </Text>
             <Text style={[styles.feelLikeText, styles.textShadow]}>
-              Sensación {formatTemp(weather.current.main.feels_like)}°C
+              {t('forecast.feelsLike')} {formatTemp(weather.current.main.feels_like)}°C
             </Text>
           </View>
-          <View style={styles.iconContainer}>
+          <Animated.View
+            style={[
+              styles.iconContainer,
+              {
+                animationName: slice,
+                animationIterationCount: 'infinite',
+                animationDuration: '15s',
+                animationTimingFunction: 'linear',
+              },
+            ]}>
             <Image
               resizeMode="contain"
               style={styles.icon}
@@ -40,7 +48,7 @@ export default function MainTemp({ weather }: Props) {
                 uri: `https://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`,
               }}
             />
-          </View>
+          </Animated.View>
         </View>
 
         <View style={styles.line}></View>
@@ -51,7 +59,7 @@ export default function MainTemp({ weather }: Props) {
           </Text>
           <View style={styles.verticalLine} />
           <Text style={[styles.secondaryText, styles.textShadow]}>
-            Humedad: {weather.current.main.humidity}%
+            {t('forecast.humidity')}: {weather.current.main.humidity}%
           </Text>
         </View>
 
@@ -66,13 +74,22 @@ export default function MainTemp({ weather }: Props) {
             Min: {formatTemp(weather.current.main.temp_min)}°C
           </Text>
         </View>
-      </BlurView>
-    </View>
+      </Pressable>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { marginTop: 10 },
+  container: {
+    marginTop: 10,
+    padding: 20,
+    marginHorizontal: 16,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.25)',
+  },
   cityName: {
     textAlign: 'center',
     fontSize: 30,

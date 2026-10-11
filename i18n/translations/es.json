@@ -1,0 +1,27 @@
+{
+  "home": {
+    "searchBar": "Busca una ciudad",
+    "welcomeText": "Descubre el clima de cualquier ciudad del mundo",
+    "welcomeButton": "Usar mi ubicación actual",
+    "descriptionText": "Consulta la temperatura, la humedad y el pronóstico extendido",
+    "infoTextTemp": "Temperatura",
+    "infoTextHumidity": "Humedad",
+    "infoTextForecast": "Pronóstico"
+  },
+
+  "forecast": {
+    "feelsLike": "Sensación térmica",
+    "humidity": "Humedad"
+  },
+
+  "notFound": {
+    "title": "¡Ups! No se encontró",
+    "text": "¡Volver al inicio!"
+  },
+
+  "cityNotFound": {
+    "title": "Ciudad no encontrada",
+    "subTitle": "No pudimos encontrar",
+    "suggestion": "Comprueba el nombre e inténtalo nuevamente"
+  }
+}

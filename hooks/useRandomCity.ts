@@ -24,7 +24,7 @@ export default function useRandomCity() {
     'Río de Janeiro',
     'Lima',
     'Bogotá',
-    'Ciudad de México',
+    'México',
 
     // Norteamérica
     'Nueva York',
