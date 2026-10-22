@@ -14,6 +14,8 @@ export default async function handler(req, res) {
   if (cache.has(key)) {
     const { data, time } = cache.get(key);
     if (Date.now() - time < TTL) {
+      res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=60');
+
       return res.status(200).json(data);
     }
   }
@@ -87,6 +89,8 @@ export default async function handler(req, res) {
       data: responseData,
       time: Date.now(),
     });
+
+    res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=60');
 
     return res.status(200).json(responseData);
   } catch (err) {
