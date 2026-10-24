@@ -1,33 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Animated from 'react-native-reanimated';
 import { Feather } from '@expo/vector-icons';
-import slice from '@/animations/SlideAnimation';
 import { useTranslation } from 'react-i18next';
 
 export default function DescriptionView() {
   const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Animated.View
-        style={[
-          styles.iconsContainer,
-          {
-            animationName: slice,
-            animationIterationCount: 'infinite',
-            animationDuration: '30s',
-            animationTimingFunction: 'linear',
-          },
-        ]}>
-        <Animated.View>
-          <Feather name="sun" size={40} color="white" />
-        </Animated.View>
-        <Animated.View>
-          <Feather name="moon" size={40} color="white" />
-        </Animated.View>
-        <Animated.View>
-          <Feather name="cloud" size={40} color="white" />
-        </Animated.View>
-      </Animated.View>
+      <View style={styles.iconsContainer}>
+        <Feather name="sun" size={40} color="white" />
+
+        <Feather name="moon" size={40} color="white" />
+
+        <Feather name="cloud" size={40} color="white" />
+      </View>
       <Text style={[styles.descriptionText, styles.textShadow]}>{t('home.descriptionText')}</Text>
       <View style={styles.line}></View>
     </View>
