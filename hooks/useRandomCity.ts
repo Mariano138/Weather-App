@@ -12,7 +12,6 @@ export default function useRandomCity() {
     'Lisboa',
     'Manchester',
     'Barcelona',
-    'Estocolmo',
 
     // Latin America
     'Buenos Aires',
@@ -28,7 +27,7 @@ export default function useRandomCity() {
 
     // North America
     'New York',
-    'Los Ángeles',
+    'Los Angeles',
     'Chicago',
     'Miami',
     'Toronto',
@@ -47,10 +46,6 @@ export default function useRandomCity() {
     // Oceanía
     'Sídney',
     'Auckland',
-
-    // África
-    'Ciudad del Cabo',
-    'El Cairo',
   ];
 
   const [index, setIndex] = useState(0);
