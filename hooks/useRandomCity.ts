@@ -2,19 +2,19 @@ import { useEffect, useState } from 'react';
 
 export default function useRandomCity() {
   const cities = [
-    // Europa
-    'Londres',
+    // Europe
+    'London',
     'París',
     'Madrid',
     'Roma',
     'Berlín',
     'Ámsterdam',
     'Lisboa',
-    'Dublín',
-    'Oslo',
+    'Manchester',
+    'Barcelona',
     'Estocolmo',
 
-    // Latinoamérica
+    // Latin America
     'Buenos Aires',
     'Mendoza',
     'Córdoba',
@@ -26,8 +26,8 @@ export default function useRandomCity() {
     'Bogotá',
     'México',
 
-    // Norteamérica
-    'Nueva York',
+    // North America
+    'New York',
     'Los Ángeles',
     'Chicago',
     'Miami',
@@ -43,27 +43,14 @@ export default function useRandomCity() {
     'Singapur',
     'Dubái',
     'Hong Kong',
-    'Mumbai',
-    'Pekín',
 
     // Oceanía
     'Sídney',
-    'Melbourne',
     'Auckland',
 
     // África
     'Ciudad del Cabo',
     'El Cairo',
-    'Marrakech',
-    'Nairobi',
-
-    // Extras
-    'Reikiavik',
-    'Helsinki',
-    'Honolulu',
-    'Reykjavík',
-    'Ushuaia',
-    'Reikiavik',
   ];
 
   const [index, setIndex] = useState(0);
