@@ -2,7 +2,6 @@ import i18next from 'i18next';
 
 const getDayName = (dt: number) => {
   const date = new Date(dt * 1000);
-  // if (index === 0) return 'Mañana';
   const language = i18next.language === 'en' ? 'en-US' : 'es-EN';
   const day = date.toLocaleDateString(language, { weekday: 'short' });
   const capitalize = (str: string) => str.toUpperCase();
