@@ -1,18 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native';
-import useRandomCity from '@/hooks/useRandomCity';
-import useTypingText from '@/hooks/useTypingText';
 import Animated from 'react-native-reanimated';
-import { BlinkAnimation } from '@/animations/BlinkAnimation';
+import useRotatingCity from '@/hooks/useRotatingCity';
+import useTypingText from '@/hooks/useTypingText';
+import { blinkAnimation } from '@/animations/blink';
 import { useTranslation } from 'react-i18next';
-import LocationButton from '@/components/LocationButton';
+import LocationButton from '@/components/common/LocationButton';
+import LanguageSwitcher from '@/components/common/LanguageSwitcher';
+import useZoomAnimation from '@/hooks/useZoomAnimation';
 
-export default function WelcomeView() {
-  const cities = useRandomCity();
+export default function WelcomeCard() {
+  const cities = useRotatingCity();
   const typing = useTypingText(cities);
   const { t } = useTranslation();
+  const { animatedStyle, handlePressIn, handlePressOut } = useZoomAnimation();
 
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[styles.container, animatedStyle]}
+      onTouchStart={handlePressIn}
+      onTouchEnd={handlePressOut}>
       <View style={styles.cityContainer}>
         <Text style={[styles.cityText, styles.textShadow]}>{typing}</Text>
         <Animated.Text
@@ -21,7 +27,7 @@ export default function WelcomeView() {
             styles.cityText,
             { fontSize: 30 },
             {
-              animationName: BlinkAnimation,
+              animationName: blinkAnimation,
               animationDuration: '800ms',
               animationIterationCount: 'infinite',
             },
@@ -32,8 +38,8 @@ export default function WelcomeView() {
       <Text style={[styles.descriptionText, styles.textShadow]}>{t('home.welcomeText')}</Text>
       <View style={styles.line}></View>
       <LocationButton />
-      <View style={styles.line}></View>
-    </View>
+      <LanguageSwitcher />
+    </Animated.View>
   );
 }
 
@@ -41,6 +47,11 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 20,
+    paddingVertical: 25,
   },
   cityContainer: {
     flexDirection: 'row',

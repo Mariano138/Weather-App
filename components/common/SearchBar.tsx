@@ -1,15 +1,15 @@
 import { StyleSheet, TouchableOpacity, View, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Animated from 'react-native-reanimated';
-import PopAnimation from '@/animations/PopAnimation';
+import usePopAnimation from '@/hooks/usePopAnimation';
 import { useTranslation } from 'react-i18next';
 import { router } from 'expo-router';
-import CitySuggestions from './CitySuggestions';
+import CityAutocomplete from '@/components/search/CityAutocomplete';
 import { useState } from 'react';
 
 export default function SearchBar() {
   const [city, setCity] = useState<string>('');
-  const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
+  const { animatedStyle, handlePressIn, handlePressOut } = usePopAnimation();
   const { t } = useTranslation();
 
   return (
@@ -41,7 +41,7 @@ export default function SearchBar() {
           </TouchableOpacity>
         </Animated.View>
       </View>
-      <CitySuggestions city={city} setCity={setCity} />
+      <CityAutocomplete city={city} setCity={setCity} />
     </View>
   );
 }
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.2)',
     borderRadius: 20,
-    backgroundColor: 'rgba(0,0,0,0.25)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   input: {
     borderColor: '#ffffff',

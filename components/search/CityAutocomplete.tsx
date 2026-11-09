@@ -4,16 +4,15 @@ import { SetStateAction, Dispatch, useEffect, useState } from 'react';
 import { Keyboard, StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import Octicons from '@expo/vector-icons/Octicons';
 import { useTranslation } from 'react-i18next';
-import { cities } from '@/helpers/cities';
+import { cities } from '@/constants/cities';
 
 interface Props {
   city: string;
   setCity: Dispatch<SetStateAction<string>>;
 }
 
-export default function CitySuggestions({ city, setCity }: Props) {
+export default function CityAutocomplete({ city, setCity }: Props) {
   const { getLocation } = useLocation();
-  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [keyboardVisible, setKeyboardVisible] = useState<boolean>(false);
   const { t } = useTranslation();
 
@@ -32,16 +31,10 @@ export default function CitySuggestions({ city, setCity }: Props) {
     };
   }, []);
 
-  useEffect(() => {
-    if (city.length >= 3) {
-      const filtered = cities
-        .filter((cityName) => cityName.toLowerCase().includes(city.toLowerCase()))
-        .slice(0, 5);
-      setSuggestions(filtered);
-    } else {
-      setSuggestions([]);
-    }
-  }, [city]);
+  const suggestions =
+    city.length >= 3
+      ? cities.filter((cityName) => cityName.toLowerCase().includes(city.toLowerCase())).slice(0, 5)
+      : [];
 
   const renderItem = ({ item }: { item: string }) => {
     return (
@@ -55,7 +48,6 @@ export default function CitySuggestions({ city, setCity }: Props) {
         <TouchableOpacity
           onPress={() => {
             setCity('');
-            setSuggestions([]);
             router.navigate({
               pathname: '/weather',
               params: {

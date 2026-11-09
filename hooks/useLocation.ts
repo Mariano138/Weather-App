@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import * as Location from 'expo-location';
-import { fetchWeather } from '@/services/weather';
 import { router } from 'expo-router';
 
 export default function useLocation() {
@@ -28,7 +27,6 @@ export default function useLocation() {
 
       if (address.length > 0 && address[0].city) {
         const city = address[0].city;
-        await fetchWeather(city);
         router.navigate({
           pathname: '/weather',
           params: {
@@ -37,7 +35,7 @@ export default function useLocation() {
         });
       }
     } catch (error) {
-      setErrorMsg('Unable to get your location');
+      setErrorMsg('Unable to get your location' + error);
     } finally {
       setIsLoading(false);
     }

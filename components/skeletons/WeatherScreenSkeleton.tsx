@@ -1,7 +1,7 @@
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { useWindowDimensions } from 'react-native';
 
-export default function SkeletonLoader() {
+export default function WeatherScreenSkeleton() {
   const { width, height } = useWindowDimensions();
 
   return (

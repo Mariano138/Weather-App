@@ -6,7 +6,7 @@ import {
   withSpring,
 } from 'react-native-reanimated';
 
-export default function ZoomAnimation() {
+export default function useZoomAnimation() {
   const scale = useSharedValue(1);
   const progressColor = useSharedValue(0);
 
@@ -33,7 +33,7 @@ export default function ZoomAnimation() {
     backgroundColor: interpolateColor(
       progressColor.value,
       [0, 1],
-      ['rgba(0,0,0,0.25)', 'rgba(0,0,0,0.50)']
+      ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)']
     ),
   }));
   return {

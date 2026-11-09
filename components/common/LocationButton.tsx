@@ -2,13 +2,13 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Animated from 'react-native-reanimated';
 import Feather from '@expo/vector-icons/Feather';
 import useLocation from '@/hooks/useLocation';
-import PopAnimation from '@/animations/PopAnimation';
+import usePopAnimation from '@/hooks/usePopAnimation';
 import { useTranslation } from 'react-i18next';
 
 export default function LocationButton() {
   const { t } = useTranslation();
   const { getLocation } = useLocation();
-  const { animatedStyle, handlePressIn, handlePressOut } = PopAnimation();
+  const { animatedStyle, handlePressIn, handlePressOut } = usePopAnimation();
 
   return (
     <Animated.View style={animatedStyle}>

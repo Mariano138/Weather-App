@@ -1,7 +1,7 @@
 import { ImageStyle } from 'react-native';
 import { CSSAnimationKeyframes } from 'react-native-reanimated';
 
-const scale: CSSAnimationKeyframes<ImageStyle> = {
+const scaleAnimation: CSSAnimationKeyframes<ImageStyle> = {
   from: {
     transform: [{ scale: 1 }],
   },
@@ -10,4 +10,4 @@ const scale: CSSAnimationKeyframes<ImageStyle> = {
   },
 };
 
-export default scale;
+export default scaleAnimation;

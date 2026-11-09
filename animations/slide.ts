@@ -1,6 +1,6 @@
 import { CSSAnimationKeyframes } from 'react-native-reanimated';
 
-const slice: CSSAnimationKeyframes = {
+const slideAnimation: CSSAnimationKeyframes = {
   '0%': {
     transform: [{ translateX: -10 }],
   },
@@ -18,4 +18,4 @@ const slice: CSSAnimationKeyframes = {
   },
 };
 
-export default slice;
+export default slideAnimation;

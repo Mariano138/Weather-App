@@ -39,5 +39,3 @@ export interface WeatherInterface {
   current: CurrentWeather;
   forecast: ForecastItem[];
 }
-
-export default WeatherInterface;

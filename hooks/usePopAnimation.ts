@@ -5,7 +5,7 @@ import {
   withSpring,
 } from 'react-native-reanimated';
 
-export default function PopAnimation() {
+export default function usePopAnimation() {
   const scale = useSharedValue<number>(1);
 
   const handlePressIn = () => {

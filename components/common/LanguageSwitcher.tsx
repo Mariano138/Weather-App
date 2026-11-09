@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export default function ChangeLanguage() {
+export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState<string>('EN');
 
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.2)',
     borderRadius: 20,
     backgroundColor: 'rgba(0,0,0,0.60)',
-    marginTop: 50,
+    marginTop: 25,
   },
   languageButton: {
     flexDirection: 'row',

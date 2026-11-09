@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import SearchBar from '@/components/SearchBar';
-import getBackground from '@/helpers/getBackground';
-import LocationButton from '@/components/LocationButton';
+import SearchBar from '@/components/common/SearchBar';
+import getWeatherBackground from '@/utils/getWeatherBackground';
+import LocationButton from '@/components/common/LocationButton';
 import Animated from 'react-native-reanimated';
-import scale from '@/animations/ScaleAnimation';
+import scaleAnimation from '@/animations/scale';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +11,10 @@ export default function CityNotFound({ city }: { city: string }) {
   const { t } = useTranslation();
 
   return (
-    <ImageBackground source={getBackground()} resizeMode="cover" style={styles.imageBackground}>
+    <ImageBackground
+      source={getWeatherBackground()}
+      resizeMode="cover"
+      style={styles.imageBackground}>
       <SafeAreaView style={styles.container}>
         <SearchBar />
 
@@ -22,7 +25,7 @@ export default function CityNotFound({ city }: { city: string }) {
             style={[
               styles.tinyLogo,
               {
-                animationName: scale,
+                animationName: scaleAnimation,
                 animationDuration: '5s',
                 animationIterationCount: 'infinite',
                 animationTimingFunction: 'ease-in-out',
@@ -33,7 +36,7 @@ export default function CityNotFound({ city }: { city: string }) {
           />
 
           <Text style={[styles.descriptionText, styles.textShadow]}>
-            {t('cityNotFound.subTitle')} "{city}"
+            {t('cityNotFound.subTitle')}
           </Text>
 
           <View style={styles.line}></View>
