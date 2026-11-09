@@ -1,11 +1,25 @@
 {
-  "name": "Weather App",
+  "name": "weather-app",
   "version": "1.0.0",
+  "description": "Cross-platform weather app built with React Native, Expo and TypeScript.",
+  "author": "Mariano Agüero",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mariano138/Weather-App.git"
+  },
+  "keywords": [
+    "weather",
+    "expo",
+    "react-native",
+    "typescript",
+    "expo-router"
+  ],
   "scripts": {
     "android": "expo start --android",
     "ios": "expo start --ios",
     "start": "expo start",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
+    "typecheck": "tsc --noEmit",
     "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "web": "expo start --web"
   },
