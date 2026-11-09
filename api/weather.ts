@@ -1,7 +1,20 @@
-const cache = new Map();
+const cache = new Map<string, { data: unknown; time: number }>();
 const TTL = 10 * 60 * 1000;
 
-export default async function handler(req, res) {
+interface WeatherRequest {
+  query: {
+    city?: string;
+    lang?: string;
+  };
+}
+
+interface WeatherResponse {
+  setHeader(name: string, value: string): void;
+  status(code: number): WeatherResponse;
+  json(body: unknown): void;
+}
+
+export default async function handler(req: WeatherRequest, res: WeatherResponse) {
   const city = req.query.city;
   const language = req.query.lang === 'en' ? 'en' : 'es';
 
@@ -11,13 +24,12 @@ export default async function handler(req, res) {
 
   const key = `${city.toLowerCase()}-${language}`;
 
-  if (cache.has(key)) {
-    const { data, time } = cache.get(key);
-    if (Date.now() - time < TTL) {
-      res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=60');
+  const cached = cache.get(key);
 
-      return res.status(200).json(data);
-    }
+  if (cached && Date.now() - cached.time < TTL) {
+    res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=60');
+
+    return res.status(200).json(cached.data);
   }
 
   try {

@@ -7,13 +7,14 @@ const resources = {
   es: { translation: es },
 };
 
+// eslint-disable-next-line import/no-named-as-default-member
 i18next.use(initReactI18next).init({
-  resources: resources,
+  resources,
   debug: false,
   lng: 'en',
   fallbackLng: 'en',
   interpolation: {
-    escapeValue: false, // React already escapes values, preventing XSS.
+    escapeValue: false,
   },
 });
 

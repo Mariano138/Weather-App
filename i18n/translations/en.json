@@ -11,7 +11,9 @@
 
   "forecast": {
     "feelsLike": "Feels like",
-    "humidity": "Humidity"
+    "humidity": "Humidity",
+    "max": "Max",
+    "min": "Min"
   },
 
   "notFound": {

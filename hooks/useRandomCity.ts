@@ -1,62 +1,53 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+const cities = [
+  // Europe
+  'London',
+  'Paris',
+  'Madrid',
+  'Rome',
+  'Berlin',
+  'Amsterdam',
+  'Lisbon',
+  'Manchester',
+  'Barcelona',
+
+  // Latin America
+  'Buenos Aires',
+  'Mendoza',
+  'Cordoba',
+  'Santiago',
+  'Montevideo',
+  'Sao Paulo',
+  'Rio de Janeiro',
+  'Lima',
+  'Bogota',
+  'Mexico City',
+
+  // North America
+  'New York',
+  'Los Angeles',
+  'Chicago',
+  'Miami',
+  'Toronto',
+  'Vancouver',
+  'Nashville',
+  'San Francisco',
+
+  // Asia
+  'Tokyo',
+  'Seoul',
+  'Bangkok',
+  'Singapore',
+  'Dubai',
+  'Hong Kong',
+
+  // Oceania
+  'Sydney',
+  'Auckland',
+];
 
 export default function useRandomCity() {
-  const cities = [
-    // Europe
-    'London',
-    'París',
-    'Madrid',
-    'Roma',
-    'Berlín',
-    'Ámsterdam',
-    'Lisboa',
-    'Manchester',
-    'Barcelona',
-
-    // Latin America
-    'Buenos Aires',
-    'Mendoza',
-    'Córdoba',
-    'Santiago',
-    'Montevideo',
-    'São Paulo',
-    'Río de Janeiro',
-    'Lima',
-    'Bogotá',
-    'México',
-
-    // North America
-    'New York',
-    'Los Angeles',
-    'Chicago',
-    'Miami',
-    'Toronto',
-    'Vancouver',
-    'Nashville',
-    'San Francisco',
-
-    // Asia
-    'Tokio',
-    'Seúl',
-    'Bangkok',
-    'Singapur',
-    'Dubái',
-    'Hong Kong',
-
-    // Oceanía
-    'Sídney',
-    'Auckland',
-  ];
-
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex(Math.floor(Math.random() * cities.length));
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
+  const [index] = useState(() => Math.floor(Math.random() * cities.length));
   return cities[index];
 }

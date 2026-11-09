@@ -1,11 +1,9 @@
+import '@/i18n/i18n.config';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import SearchBar from '@/components/SearchBar';
-import WelcomeView from '@/components/WelcomeView';
-import DescriptionView from '@/components/DescriptionView';
-import InfoView from '@/components/InfoView';
-import '@/i18n/i18n.config';
-import ChangeLanguage from '@/components/ChangeLanguage';
+import SearchBar from '@/components/common/SearchBar';
+import WelcomeCard from '@/components/home/WelcomeCard';
+import CityCard from '@/components/home/CityCard';
 
 export default function Home() {
   return (
@@ -13,15 +11,14 @@ export default function Home() {
       <ImageBackground
         source={require('../assets/images/sun.png')}
         style={styles.imageBackground}
-        resizeMode="cover">
+        resizeMode="cover"
+        blurRadius={5}>
         <SafeAreaView style={styles.container}>
           <SearchBar />
-          <View style={styles.componentsContainer}>
-            <WelcomeView />
-            <DescriptionView />
-            <InfoView />
-            <ChangeLanguage />
-          </View>
+          <WelcomeCard />
+          {[0, 1].map((index) => (
+            <CityCard key={index} />
+          ))}
         </SafeAreaView>
       </ImageBackground>
     </View>
@@ -32,16 +29,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 10,
-    marginTop: 10,
+    paddingTop: 10,
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
-  componentsContainer: {
-    marginHorizontal: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 20,
-    backgroundColor: 'rgba(0,0,0,0.25)',
-    paddingVertical: 50,
-  },
+
   imageBackground: {
     width: '100%',
     height: '100%',

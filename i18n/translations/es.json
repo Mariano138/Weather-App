@@ -11,7 +11,9 @@
 
   "forecast": {
     "feelsLike": "Sensación térmica",
-    "humidity": "Humedad"
+    "humidity": "Humedad",
+    "max": "Máx",
+    "min": "Mín"
   },
 
   "notFound": {

@@ -14,7 +14,7 @@ export default function useTypingText(text: string, speed = 150) {
     }, speed);
 
     return () => clearInterval(interval);
-  }, [text]);
+  }, [text, speed]);
 
   return displayedText;
 }
