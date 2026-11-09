@@ -1,5 +1,7 @@
 # Weather App
 
+[![CI](https://github.com/Mariano138/Weather-App/actions/workflows/ci.yml/badge.svg)](https://github.com/Mariano138/Weather-App/actions/workflows/ci.yml)
+
 A simple weather application built with React Native and Expo that allows users to search for cities and view current weather conditions and forecast.
 
 
@@ -60,6 +62,20 @@ $ npx expo start
 ```
 
 > **Note** You can run the app using Expo Go on your mobile device or an Android/iOS development environment.
+
+## Testing
+
+The project uses Jest with `jest-expo`. The tests cover the weather service and utility functions.
+
+```bash
+# Run the test suite
+npm test
+
+# Run in watch mode
+npm run test:watch
+```
+
+Every push and pull request runs type checking, linting and tests through GitHub Actions.
 
 ## Backend & API
 - OpenWeather API — Provides current weather conditions and forecast data.
