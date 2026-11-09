@@ -78,9 +78,12 @@ npm run test:watch
 Every push and pull request runs type checking, linting and tests through GitHub Actions.
 
 ## Backend & API
-- OpenWeather API — Provides current weather conditions and forecast data.
-- Vercel Serverless Functions — Handles weather API requests and keeps the API key on the server.
-- Response Caching — Reduces unnecessary external API requests and improves response times.
+- OpenWeather API 
+    - Provides current weather conditions and forecast data.
+- Vercel Serverless Functions 
+    - Handles weather API requests and keeps the API key on the server.
+- Response Caching 
+    - Reduces unnecessary external API requests and improves response times.
 
 ## Author
 
