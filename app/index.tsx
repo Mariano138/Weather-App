@@ -1,4 +1,3 @@
-import '@/i18n/i18n.config';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SearchBar from '@/components/common/SearchBar';
