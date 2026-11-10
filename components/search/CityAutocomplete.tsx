@@ -1,7 +1,15 @@
 import useLocation from '@/hooks/useLocation';
 import { router } from 'expo-router';
 import { SetStateAction, Dispatch, useEffect, useState } from 'react';
-import { Keyboard, StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+import {
+  Keyboard,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 import Octicons from '@expo/vector-icons/Octicons';
 import { useTranslation } from 'react-i18next';
 import { cities } from '@/constants/cities';
@@ -30,6 +38,11 @@ export default function CityAutocomplete({ city, setCity }: Props) {
       hideSub.remove();
     };
   }, []);
+
+  // The browser does not emit native keyboard events, so on web we show the
+  // suggestions as soon as there is enough text to search.
+  const isWeb = Platform.OS === 'web';
+  const showSuggestions = keyboardVisible || (isWeb && city.length >= 3);
 
   const suggestions =
     city.length >= 3
@@ -63,14 +76,16 @@ export default function CityAutocomplete({ city, setCity }: Props) {
 
   return (
     <View style={styles.locationContainer}>
-      {keyboardVisible && (
+      {showSuggestions && (
         <View style={styles.locationContainerSon}>
-          <TouchableOpacity onPress={() => getLocation()}>
-            <Text style={styles.cityText}>
-              <Octicons style={styles.textShadow} name="location" size={24} color="black" />
-              {t('home.welcomeButton')}
-            </Text>
-          </TouchableOpacity>
+          {!isWeb && (
+            <TouchableOpacity onPress={() => getLocation()}>
+              <Text style={styles.cityText}>
+                <Octicons style={styles.textShadow} name="location" size={24} color="black" />
+                {t('home.welcomeButton')}
+              </Text>
+            </TouchableOpacity>
+          )}
           <FlatList
             data={suggestions}
             renderItem={renderItem}
