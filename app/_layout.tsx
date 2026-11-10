@@ -1,3 +1,4 @@
+import '@/i18n/i18n.config';
 import { Stack } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 

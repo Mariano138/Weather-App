@@ -2,6 +2,7 @@ const cache = new Map<string, { data: unknown; time: number }>();
 const TTL = 10 * 60 * 1000;
 
 interface WeatherRequest {
+  method?: string;
   query: {
     city?: string;
     lang?: string;
@@ -12,9 +13,18 @@ interface WeatherResponse {
   setHeader(name: string, value: string): void;
   status(code: number): WeatherResponse;
   json(body: unknown): void;
+  end(): void;
 }
 
 export default async function handler(req: WeatherRequest, res: WeatherResponse) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   const city = req.query.city;
   const language = req.query.lang === 'en' ? 'en' : 'es';
 
