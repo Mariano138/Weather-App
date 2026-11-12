@@ -57,6 +57,18 @@
         backface-visibility: hidden;
       }
 
+      /*
+        Inside the phone frame the desktop scrollbar looks out of place.
+        Scrolling still works, it is only the bar that is hidden.
+      */
+      [data-weather-scroll='true'] {
+        scrollbar-width: none;
+      }
+
+      [data-weather-scroll='true']::-webkit-scrollbar {
+        display: none;
+      }
+
       @media (max-width: 599px) {
         #root {
           width: 100%;
