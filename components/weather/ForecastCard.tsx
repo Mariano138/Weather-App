@@ -15,8 +15,10 @@ export default function ForecastCard({ item, index }: { item: ForecastItem; inde
     <Animated.View
       key={index}
       style={[styles.container, animatedStyle]}
-      onTouchStart={handlePressIn}
-      onTouchEnd={handlePressOut}>
+      onPointerDown={handlePressIn}
+      onPointerUp={handlePressOut}
+      onPointerLeave={handlePressOut}
+      onPointerCancel={handlePressOut}>
       <View style={styles.leftContainer}>
         <View style={styles.dateContainer}>
           <Text style={[styles.textShadow, { color: '#fff' }]}>{getDayName(item.dt)}</Text>

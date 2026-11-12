@@ -18,8 +18,10 @@ export default function CurrentWeatherCard({ weather }: Props) {
   return (
     <Animated.View
       style={[styles.container, animatedStyle]}
-      onTouchStart={handlePressIn}
-      onTouchEnd={handlePressOut}>
+      onPointerDown={handlePressIn}
+      onPointerUp={handlePressOut}
+      onPointerLeave={handlePressOut}
+      onPointerCancel={handlePressOut}>
       <Text style={[styles.cityName, styles.textShadow]}>{weather.current.name}</Text>
 
       <View style={styles.line}></View>
@@ -34,6 +36,7 @@ export default function CurrentWeatherCard({ weather }: Props) {
           </Text>
         </View>
         <Animated.View
+          dataSet={{ weatherSlide: 'true' }}
           style={[
             styles.iconContainer,
             {

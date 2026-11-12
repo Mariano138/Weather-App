@@ -1,26 +1,36 @@
+import { useState } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { LayoutChangeEvent, StyleSheet, View } from 'react-native';
 
 export default function CityCardSkeleton() {
-  const { width } = useWindowDimensions();
+  // On web, useWindowDimensions returns the browser window, not the phone
+  // frame the app is rendered in, so the loader has to measure its container.
+  const [width, setWidth] = useState(0);
   const cardWidth = width - 32;
 
+  const handleLayout = ({ nativeEvent }: LayoutChangeEvent) => {
+    const { width: measuredWidth } = nativeEvent.layout;
+    setWidth((current) => (current === measuredWidth ? current : measuredWidth));
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={{ width: cardWidth, height: 150 }}>
-        <ContentLoader
-          width={cardWidth}
-          height={150}
-          viewBox={`0 0 ${cardWidth} 150`}
-          speed={0.8}
-          backgroundColor="#000000"
-          backgroundOpacity={0.5}
-          foregroundColor="#000000"
-          foregroundOpacity={0.7}>
-          <Rect x={0} y={0} rx={20} ry={20} width={cardWidth} height={150} />
-        </ContentLoader>
-        <View style={styles.border} pointerEvents="none" />
-      </View>
+    <View style={styles.container} onLayout={handleLayout}>
+      {cardWidth > 0 && (
+        <View style={{ width: cardWidth, height: 150 }}>
+          <ContentLoader
+            width={cardWidth}
+            height={150}
+            viewBox={`0 0 ${cardWidth} 150`}
+            speed={0.8}
+            backgroundColor="#000000"
+            backgroundOpacity={0.5}
+            foregroundColor="#000000"
+            foregroundOpacity={0.7}>
+            <Rect x={0} y={0} rx={20} ry={20} width={cardWidth} height={150} />
+          </ContentLoader>
+          <View style={styles.border} pointerEvents="none" />
+        </View>
+      )}
     </View>
   );
 }

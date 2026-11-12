@@ -38,6 +38,8 @@ export default function CityCard() {
 
   return (
     <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       onPress={() => {
         if (!city.trim()) return;
         router.navigate({
@@ -47,10 +49,7 @@ export default function CityCard() {
           },
         });
       }}>
-      <Animated.View
-        style={[styles.container, animatedStyle]}
-        onTouchStart={handlePressIn}
-        onTouchEnd={handlePressOut}>
+      <Animated.View style={[styles.container, animatedStyle]}>
         <View style={styles.textContainer}>
           <Text style={[styles.textTemp, styles.textShadow]}>
             {formatTemperature(weather.current.main.temp)}°
@@ -63,6 +62,7 @@ export default function CityCard() {
           </View>
         </View>
         <Animated.View
+          dataSet={{ weatherSlide: 'true' }}
           style={[
             {
               animationName: slideAnimation,
