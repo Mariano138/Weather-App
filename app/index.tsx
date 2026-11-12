@@ -3,8 +3,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SearchBar from '@/components/common/SearchBar';
 import WelcomeCard from '@/components/home/WelcomeCard';
 import CityCard from '@/components/home/CityCard';
+import useRandomCities from '@/hooks/useRandomCities';
 
 export default function Home() {
+  const cities = useRandomCities(2);
+
   return (
     <View style={styles.imageBackground}>
       <ImageBackground
@@ -15,8 +18,8 @@ export default function Home() {
           <View style={styles.spacer} />
           <SearchBar />
           <WelcomeCard />
-          {[0, 1].map((index) => (
-            <CityCard key={index} />
+          {cities.map((city) => (
+            <CityCard key={city} city={city} />
           ))}
           <View style={styles.spacer} />
         </SafeAreaView>
