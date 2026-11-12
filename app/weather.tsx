@@ -33,7 +33,6 @@ export default function Weather() {
     <ImageBackground
       source={getWeatherBackground(weather)}
       resizeMode="cover"
-      blurRadius={5}
       style={styles.imageBackground}>
       <ScrollView
         style={styles.container}
@@ -55,6 +54,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 25,
-    backgroundColor: 'rgba(0,0,0,0.2)',
   },
 });

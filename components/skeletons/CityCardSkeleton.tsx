@@ -23,7 +23,7 @@ export default function CityCardSkeleton() {
             viewBox={`0 0 ${cardWidth} 150`}
             speed={0.8}
             backgroundColor="#000000"
-            backgroundOpacity={0.5}
+            backgroundOpacity={0.25}
             foregroundColor="#000000"
             foregroundOpacity={0.7}>
             <Rect x={0} y={0} rx={20} ry={20} width={cardWidth} height={150} />

@@ -10,8 +10,7 @@ export default function Home() {
       <ImageBackground
         source={require('../assets/images/sun.png')}
         style={styles.imageBackground}
-        resizeMode="cover"
-        blurRadius={5}>
+        resizeMode="cover">
         <SafeAreaView style={styles.container}>
           <View style={styles.spacer} />
           <SearchBar />
@@ -30,7 +29,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 10,
-    backgroundColor: 'rgba(0,0,0,0.2)',
   },
 
   spacer: {
