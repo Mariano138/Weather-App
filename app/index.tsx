@@ -13,9 +13,6 @@ export default function Home() {
         resizeMode="cover"
         blurRadius={5}>
         <SafeAreaView style={styles.container}>
-          {/* Flexible spacers centre the content when there is room, and
-              collapse to zero when the keyboard shrinks the viewport, so the
-              search bar never slides under the status bar. */}
           <View style={styles.spacer} />
           <SearchBar />
           <WelcomeCard />
