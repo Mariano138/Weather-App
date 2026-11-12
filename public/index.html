@@ -11,8 +11,10 @@
     <title>%WEB_TITLE%</title>
 
     <!--
-      This is a mobile-first app. On the web we keep it inside a phone-sized
-      frame so the layout looks intentional on tablets and desktops.
+      This is a mobile-first app. On the web we render it on a fixed 390x844
+      phone canvas and scale it as a whole, so the layout always keeps the
+      proportions it has on a real device. Following the browser height (the
+      previous behaviour) clipped the home screen on short windows.
     -->
     <style id="expo-reset">
       html,
@@ -22,6 +24,9 @@
       }
 
       body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         overflow: hidden;
         background-color: #0b1120;
         background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b1120 55%, #060a13 100%);
@@ -29,26 +34,36 @@
 
       #root {
         display: flex;
-        width: 100%;
-        height: 100%;
-        flex: 1;
-        max-width: 480px;
-        margin: 0 auto;
+        width: 390px;
+        height: 844px;
+        flex: none;
         overflow: hidden;
         background-color: #0f172a;
+        border-radius: 28px;
+        box-shadow:
+          0 24px 80px rgba(0, 0, 0, 0.65),
+          0 0 0 1px rgba(255, 255, 255, 0.08);
+        transform-origin: center center;
       }
 
-      @media (min-width: 600px) {
-        body {
-          padding: 28px 0;
-          box-sizing: border-box;
-        }
+      /*
+        The weather icons drift only 20px over 15-30s. Without a compositor
+        layer the browser snaps that sub-pixel movement to whole pixels, which
+        looks like it moves frame by frame. This keeps it smooth and does not
+        change the animation itself.
+      */
+      [data-weather-slide='true'] {
+        will-change: transform;
+        backface-visibility: hidden;
+      }
 
+      @media (max-width: 599px) {
         #root {
-          border-radius: 28px;
-          box-shadow:
-            0 24px 80px rgba(0, 0, 0, 0.65),
-            0 0 0 1px rgba(255, 255, 255, 0.08);
+          width: 100%;
+          height: 100%;
+          border-radius: 0;
+          box-shadow: none;
+          transform: none !important;
         }
       }
     </style>
@@ -57,5 +72,33 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      (() => {
+        const DESIGN_WIDTH = 390;
+        const DESIGN_HEIGHT = 844;
+        const MAX_WIDTH = 480;
+        const MARGIN = 28;
+        const MOBILE_QUERY = '(max-width: 599px)';
+
+        const root = document.getElementById('root');
+
+        const fitPhoneFrame = () => {
+          if (window.matchMedia(MOBILE_QUERY).matches) {
+            root.style.transform = '';
+            return;
+          }
+
+          const scale = Math.min(
+            MAX_WIDTH / DESIGN_WIDTH,
+            Math.max((window.innerHeight - MARGIN * 2) / DESIGN_HEIGHT, 0.2)
+          );
+
+          root.style.transform = `scale(${scale})`;
+        };
+
+        fitPhoneFrame();
+        window.addEventListener('resize', fitPhoneFrame);
+      })();
+    </script>
   </body>
 </html>
