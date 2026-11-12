@@ -35,7 +35,10 @@ export default function Weather() {
       resizeMode="cover"
       blurRadius={5}
       style={styles.imageBackground}>
-      <ScrollView style={styles.container} keyboardShouldPersistTaps="always">
+      <ScrollView
+        style={styles.container}
+        dataSet={{ weatherScroll: 'true' }}
+        keyboardShouldPersistTaps="always">
         <SearchBar />
         <CurrentWeatherCard weather={weather} />
         <ForecastList weather={weather} />
