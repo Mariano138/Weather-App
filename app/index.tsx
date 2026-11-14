@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
   },
 
   spacer: {

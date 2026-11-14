@@ -21,7 +21,9 @@ export default function CurrentWeatherCard({ weather }: Props) {
       onPointerDown={handlePressIn}
       onPointerUp={handlePressOut}
       onPointerLeave={handlePressOut}
-      onPointerCancel={handlePressOut}>
+      onPointerCancel={handlePressOut}
+      onTouchStart={handlePressIn}
+      onTouchEnd={handlePressOut}>
       <Text style={[styles.cityName, styles.textShadow]}>{weather.current.name}</Text>
 
       <View style={styles.line}></View>

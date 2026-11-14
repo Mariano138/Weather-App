@@ -33,7 +33,7 @@ export default function useZoomAnimation() {
     backgroundColor: interpolateColor(
       progressColor.value,
       [0, 1],
-      ['rgba(0,0,0,0.25)', 'rgba(0,0,0,0.7)']
+      ['rgba(0,0,0,0.40)', 'rgba(0,0,0,0.60)']
     ),
   }));
   return {
