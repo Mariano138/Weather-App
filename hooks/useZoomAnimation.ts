@@ -12,19 +12,19 @@ export default function useZoomAnimation() {
 
   const handlePressIn = () => {
     scale.value = withSpring(1.02, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
     progressColor.value = withSpring(1, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
   };
 
   const handlePressOut = () => {
     scale.value = withSpring(1, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
     progressColor.value = withSpring(0, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
   };
 
