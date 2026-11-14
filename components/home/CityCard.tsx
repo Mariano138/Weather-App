@@ -29,12 +29,7 @@ export default function CityCard({ city }: Props) {
     enabled: !!city,
   });
 
-  if (isPending)
-    return (
-      <View style={{ flex: 1 }}>
-        <CityCardSkeleton />
-      </View>
-    );
+  if (isPending) return <CityCardSkeleton />;
 
   if (error) return <Text>{`${city}: ${error.message}`}</Text>;
 
