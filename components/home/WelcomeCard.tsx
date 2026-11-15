@@ -20,7 +20,9 @@ export default function WelcomeCard() {
       onPointerDown={handlePressIn}
       onPointerUp={handlePressOut}
       onPointerLeave={handlePressOut}
-      onPointerCancel={handlePressOut}>
+      onPointerCancel={handlePressOut}
+      onTouchStart={handlePressIn}
+      onTouchEnd={handlePressOut}>
       <View style={styles.cityContainer}>
         <Text style={[styles.cityText, styles.textShadow]}>{typing}</Text>
         <Animated.Text

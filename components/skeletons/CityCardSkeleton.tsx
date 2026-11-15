@@ -16,17 +16,17 @@ export default function CityCardSkeleton() {
   return (
     <View style={styles.container} onLayout={handleLayout}>
       {cardWidth > 0 && (
-        <View style={{ width: cardWidth, height: 150 }}>
+        <View style={{ width: cardWidth, height: 152 }}>
           <ContentLoader
             width={cardWidth}
-            height={150}
-            viewBox={`0 0 ${cardWidth} 150`}
+            height={152}
+            viewBox={`0 0 ${cardWidth} 152`}
             speed={0.8}
             backgroundColor="#000000"
-            backgroundOpacity={0.5}
+            backgroundOpacity={0.25}
             foregroundColor="#000000"
             foregroundOpacity={0.7}>
-            <Rect x={0} y={0} rx={20} ry={20} width={cardWidth} height={150} />
+            <Rect x={0} y={0} rx={20} ry={20} width={cardWidth} height={152} />
           </ContentLoader>
           <View style={styles.border} pointerEvents="none" />
         </View>

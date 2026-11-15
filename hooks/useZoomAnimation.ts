@@ -12,19 +12,19 @@ export default function useZoomAnimation() {
 
   const handlePressIn = () => {
     scale.value = withSpring(1.02, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
     progressColor.value = withSpring(1, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
   };
 
   const handlePressOut = () => {
     scale.value = withSpring(1, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
     progressColor.value = withSpring(0, {
-      reduceMotion: ReduceMotion.Never,
+      reduceMotion: ReduceMotion.System,
     });
   };
 
@@ -33,7 +33,7 @@ export default function useZoomAnimation() {
     backgroundColor: interpolateColor(
       progressColor.value,
       [0, 1],
-      ['rgba(0,0,0,0.5)', 'rgba(0,0,0,0.7)']
+      ['rgba(0,0,0,0.40)', 'rgba(0,0,0,0.60)']
     ),
   }));
   return {

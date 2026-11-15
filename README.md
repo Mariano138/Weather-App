@@ -6,6 +6,12 @@ A simple weather application built with React Native and Expo that allows users 
 
 
 
+## Demo
+
+Live web build: **https://weather-app-mariano.netlify.app**
+
+
+
 ## Screenshots
 
 | Home | Weather |

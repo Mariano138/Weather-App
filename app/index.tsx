@@ -3,21 +3,23 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SearchBar from '@/components/common/SearchBar';
 import WelcomeCard from '@/components/home/WelcomeCard';
 import CityCard from '@/components/home/CityCard';
+import useRandomCities from '@/hooks/useRandomCities';
 
 export default function Home() {
+  const cities = useRandomCities(2);
+
   return (
     <View style={styles.imageBackground}>
       <ImageBackground
         source={require('../assets/images/sun.png')}
         style={styles.imageBackground}
-        resizeMode="cover"
-        blurRadius={5}>
+        resizeMode="cover">
         <SafeAreaView style={styles.container}>
           <View style={styles.spacer} />
           <SearchBar />
           <WelcomeCard />
-          {[0, 1].map((index) => (
-            <CityCard key={index} />
+          {cities.map((city) => (
+            <CityCard key={city} city={city} />
           ))}
           <View style={styles.spacer} />
         </SafeAreaView>
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 10,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
   },
 
   spacer: {

@@ -3,7 +3,6 @@ import slideAnimation from '@/animations/slide';
 import useZoomAnimation from '@/hooks/useZoomAnimation';
 import capitalize from '@/utils/capitalize';
 import formatTemperature from '@/utils/formatTemperature';
-import useRandomCity from '@/hooks/useRandomCity';
 import { fetchWeather } from '@/services/weatherApi';
 import { useQuery } from '@tanstack/react-query';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -11,8 +10,11 @@ import Animated from 'react-native-reanimated';
 import { useTranslation } from 'react-i18next';
 import CityCardSkeleton from '@/components/skeletons/CityCardSkeleton';
 
-export default function CityCard() {
-  const city = useRandomCity();
+interface Props {
+  city: string;
+}
+
+export default function CityCard({ city }: Props) {
   const { i18n } = useTranslation();
   const language = i18n.resolvedLanguage ?? i18n.language;
   const { animatedStyle, handlePressIn, handlePressOut } = useZoomAnimation();
@@ -27,12 +29,7 @@ export default function CityCard() {
     enabled: !!city,
   });
 
-  if (isPending)
-    return (
-      <View style={{ flex: 1 }}>
-        <CityCardSkeleton />
-      </View>
-    );
+  if (isPending) return <CityCardSkeleton />;
 
   if (error) return <Text>{`${city}: ${error.message}`}</Text>;
 
