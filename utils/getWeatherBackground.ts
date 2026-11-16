@@ -23,6 +23,8 @@ const getWeatherBackground = (weather?: WeatherInterface | null) => {
       return require('../assets/images/snow.png');
     case 'Thunderstorm':
       return require('../assets/images/storm.png');
+    case 'Fog':
+    case 'Haze':
     case 'Mist':
       return require('../assets/images/mist.png');
     default:

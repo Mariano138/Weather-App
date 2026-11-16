@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { WeatherInterface } from '@/types/weather';
 import formatTemperature from '@/utils/formatTemperature';
 import capitalize from '@/utils/capitalize';
+import getWeatherIconTint from '@/utils/getWeatherIconTint';
 import Animated from 'react-native-reanimated';
 import slideAnimation from '@/animations/slide';
 import useZoomAnimation from '@/hooks/useZoomAnimation';
@@ -51,6 +52,7 @@ export default function CurrentWeatherCard({ weather }: Props) {
           <Image
             resizeMode="contain"
             style={styles.icon}
+            tintColor={getWeatherIconTint(weather.current.weather[0].icon)}
             source={{
               uri: `https://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`,
             }}

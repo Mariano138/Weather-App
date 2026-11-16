@@ -6,6 +6,7 @@ import formatTemperature from '@/utils/formatTemperature';
 import { ForecastItem } from '@/types/weather';
 import getDayName from '@/utils/getDayName';
 import getDateNumber from '@/utils/getDateNumber';
+import getWeatherIconTint from '@/utils/getWeatherIconTint';
 import capitalize from '@/utils/capitalize';
 
 export default function ForecastCard({ item, index }: { item: ForecastItem; index: number }) {
@@ -31,6 +32,7 @@ export default function ForecastCard({ item, index }: { item: ForecastItem; inde
           <Image
             resizeMode="contain"
             style={styles.icon}
+            tintColor={getWeatherIconTint(item.weather[0].icon)}
             source={{
               uri: `https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`,
             }}

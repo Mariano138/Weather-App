@@ -3,6 +3,7 @@ import slideAnimation from '@/animations/slide';
 import useZoomAnimation from '@/hooks/useZoomAnimation';
 import capitalize from '@/utils/capitalize';
 import formatTemperature from '@/utils/formatTemperature';
+import getWeatherIconTint from '@/utils/getWeatherIconTint';
 import { fetchWeather } from '@/services/weatherApi';
 import { useQuery } from '@tanstack/react-query';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -71,6 +72,7 @@ export default function CityCard({ city }: Props) {
           <Image
             resizeMode="cover"
             style={styles.icon}
+            tintColor={getWeatherIconTint(weather.current.weather[0].icon)}
             source={{
               uri: `https://openweathermap.org/img/wn/${weather.current.weather[0].icon}@2x.png`,
             }}
