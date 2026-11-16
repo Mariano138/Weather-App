@@ -16,7 +16,11 @@ Live web build: **https://weather-app-mariano.netlify.app**
 
 | Home | Weather |
 | --- | --- |
-| ![Home screen](assets/screenshots/home.gif) | ![Weather screen](assets/screenshots/weather.gif) |
+| ![Home screen with the two city cards](assets/screenshots/home.gif) | ![Weather screen for Bangkok with the rain background](assets/screenshots/weather.gif) |
+
+| Mist — Porto | Snow — Zermatt | Night — Madrid |
+| --- | --- | --- |
+| ![Mist background in Porto](assets/screenshots/mist.jpeg) | ![Snow background in Zermatt](assets/screenshots/snow.jpeg) | ![Night background in Madrid](assets/screenshots/night.jpeg) |
 
 ## Key Features
 
